@@ -21,6 +21,8 @@
 [submodule "modules/cpp-dict-obj-file"]
 	path = modules/cpp-dict-obj-file
 	url = https://github.com/rcsb/cpp-dict-obj-file.git
+	branch = master
 [submodule "modules/cpp-cif-parser"]
 	path = modules/cpp-cif-parser
 	url = https://github.com/rcsb/cpp-cif-parser.git
+	branch = master
