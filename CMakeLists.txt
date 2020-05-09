@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(dict-pack)
 
-# Do we need all of these
-set(mydefines " -DBIG_ENDIAN_PLATFORM  -DHAVE_STRCASECMP -DINCL_TEMPLATE_SRC -DHAVE_PLACEMENT_NEW  ")
+# Do we need all of these - none seem to be used
+#set(mydefines " -DBIG_ENDIAN_PLATFORM  -DHAVE_STRCASECMP -DINCL_TEMPLATE_SRC -DHAVE_PLACEMENT_NEW  ")
 
 
 message(STATUS "Compiler flags " ${CMAKE_CXX_FLAGS})
