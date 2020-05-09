@@ -1,0 +1,26 @@
+[submodule "modules/cpp-common"]
+	path = modules/cpp-common
+	url = https://github.com/rcsb/cpp-common.git
+	branch = master
+[submodule "modules/cpp-tables"]
+	path = modules/cpp-tables
+	url = https://github.com/rcsb/cpp-tables.git
+	branch = master
+[submodule "modules/cc-regex"]
+	path = modules/cc-regex
+	url = https://github.com/rcsb/cc-regex.git
+	branch = master
+[submodule "modules/cpp-cif-file"]
+	path = modules/cpp-cif-file
+	url = https://github.com/rcsb/cpp-cif-file.git
+	branch = master
+[submodule "modules/cpp-cif-file-util"]
+	path = modules/cpp-cif-file-util
+	url = https://github.com/rcsb/cpp-cif-file-util.git
+	branch = master
+[submodule "modules/cpp-dict-obj-file"]
+	path = modules/cpp-dict-obj-file
+	url = https://github.com/rcsb/cpp-dict-obj-file.git
+[submodule "modules/cpp-cif-parser"]
+	path = modules/cpp-cif-parser
+	url = https://github.com/rcsb/cpp-cif-parser.git
