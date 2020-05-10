@@ -25,8 +25,8 @@ jobs:
         submodules: true
     - name: Install dependencies
       run: |
-      	   sudo apt-get clean
-	   sudo apt-get install flex bison
+           sudo apt-get clean
+           sudo apt-get install flex bison
     # Runs a single command using the runners shell
     - name: configure
       run: mkdir build && cd build && cmake ..
