@@ -26,3 +26,6 @@
 	path = modules/cpp-cif-parser
 	url = https://github.com/rcsb/cpp-cif-parser.git
 	branch = master
+[submodule "modules/cpp-schema-map"]
+	path = modules/cpp-schema-map
+	url = https://github.com/rcsb/cpp-schema-map.git

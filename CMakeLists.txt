@@ -42,6 +42,9 @@ set(INCLUDE_DIR_6 "modules/cpp-dict-obj-file/include")
 set(SOURCE_DIR_7  "modules/cpp-cif-parser/src")
 set(INCLUDE_DIR_7 "modules/cpp-cif-parser/include")
 #
+set(SOURCE_DIR_8  "modules/cpp-schema-map/src")
+set(INCLUDE_DIR_8 "modules/cpp-schema-map/include")
+#
 set(SOURCE_TEST_DIR  "modules/cpp-mmciflib-test/src")
 
 #
@@ -214,6 +217,20 @@ set(SOURCES_7
 
 add_library("cif-parser" OBJECT ${SOURCES_7})
 target_include_directories("cif-parser" PUBLIC ${BUILD_INCLUDE_DIR} ${BUILD_SOURCE_DIR})
+
+#
+#  Build 'schema-map' library
+#
+set(SOURCES_8
+             "${SOURCE_DIR_8}/SchemaDataInfo.C"
+	     "${SOURCE_DIR_8}/SchemaMap.C"
+	     "${SOURCE_DIR_8}/SchemaMapCreate.C"
+	     "${SOURCE_DIR_8}/SchemaParentChild.C"
+	     )
+# Library not integrated in main one - keep separate
+add_library("schema-map" STATIC ${SOURCES_8})
+target_include_directories("schema-map" PUBLIC ${INCLUDE_DIR_8} ${BUILD_INCLUDE_DIR} ${BUILD_SOURCE_DIR})
+
 #
 # Combine the all object into consolidated library  'mmciflib-all'
 #
@@ -248,6 +265,9 @@ add_library("mmciflib-all" STATIC
     message(STATUS "Source directory 7 " ${SOURCE_DIR_7})
     message(STATUS "Include directory 7 " ${INCLUDE_DIR_7})
     message(STATUS "SOURCE_7 LIST " ${SOURCES_7})
+    message(STATUS "Source directory 8 " ${SOURCE_DIR_8})
+    message(STATUS "Include directory 8 " ${INCLUDE_DIR_8})
+    message(STATUS "SOURCE_8 LIST " ${SOURCES_8})
 #
 message(STATUS, "---ALL DONE WITH CMAKE")
 #
