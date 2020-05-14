@@ -29,3 +29,7 @@
 [submodule "modules/cpp-schema-map"]
 	path = modules/cpp-schema-map
 	url = https://github.com/rcsb/cpp-schema-map.git
+[submodule "modules/cpp-dict-to-html"]
+	path = modules/cpp-dict-to-html
+	url = https://github.com/rcsb/cpp-dict-to-html.git
+	branch = master
