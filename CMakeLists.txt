@@ -272,6 +272,7 @@ add_library("mmciflib-all" STATIC
             "$<TARGET_OBJECTS:cif-parser>"
             )
 #
+IF(DEBUG_CORE)
     message(STATUS "Source directory 1 " ${SOURCE_DIR_1})
     message(STATUS "Include directory 1 " ${INCLUDE_DIR_1})
     message(STATUS "SOURCE_1 LIST " ${SOURCES_1})
@@ -296,8 +297,7 @@ add_library("mmciflib-all" STATIC
     message(STATUS "Source directory 8 " ${SOURCE_DIR_8})
     message(STATUS "Include directory 8 " ${INCLUDE_DIR_8})
     message(STATUS "SOURCE_8 LIST " ${SOURCES_8})
-    message(STATUS "Include directory 9 " ${INCLUDE_DIR_9})
-    message(STATUS "SOURCE_9 LIST " ${SOURCES_9})
+ENDIF(DEBUG_CORE)
 #
 message(STATUS, "---ALL DONE WITH CMAKE")
 
