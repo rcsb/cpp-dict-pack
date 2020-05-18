@@ -33,3 +33,7 @@
 	path = modules/cpp-dict-to-html
 	url = https://github.com/rcsb/cpp-dict-to-html.git
 	branch = master
+[submodule "modules/cpp-misc-dict-util"]
+	path = modules/cpp-misc-dict-util
+	url = https://github.com/rcsb/cpp-misc-dict-util.git
+	branch = master
