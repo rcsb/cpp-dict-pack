@@ -39,7 +39,9 @@ set(HTML_INCLUDES_DIR_9  "modules/cpp-dict-to-html/html-includes")
 #
 set(SOURCE_DIR_10  "modules/cpp-misc-dict-util/src")
 set(BIN_DIR_10  "modules/cpp-misc-dict-util/bin")
-
+#
+set(SOURCE_DIR_11  "modules/cpp-pdbml/src")
+set(INCLUDE_DIR_11 "modules/cpp-pdbml/include")
 #
 
 #
@@ -112,6 +114,19 @@ target_include_directories("DictToSdb" PUBLIC ${BUILD_INCLUDE_DIR})
 add_executable("non_printable" "${SOURCE_DIR_10}/non_printable.C")
 target_link_libraries("non_printable" "mmciflib-all")
 target_include_directories("non_printable" PUBLIC ${BUILD_INCLUDE_DIR})
+
+#
+#  Build 'pdbml' library - not integrated in main library
+#
+set(SOURCES_11
+             "${SOURCE_DIR_11}/PdbMlSchema.C"
+             "${SOURCE_DIR_11}/PdbMlWriter.C"	
+             "${SOURCE_DIR_11}/XmlWriter.C"
+             "${SOURCE_DIR_11}/XsdWriter.C"	
+	     )
+add_library("pdbml" STATIC ${SOURCES_11})
+target_include_directories("pdbml" PUBLIC ${INCLUDE_DIR_11} ${BUILD_INCLUDE_DIR} ${BUILD_SOURCE_DIR})
+
 
 
 

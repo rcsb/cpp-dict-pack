@@ -37,3 +37,7 @@
 	path = modules/cpp-misc-dict-util
 	url = https://github.com/rcsb/cpp-misc-dict-util.git
 	branch = master
+[submodule "modules/cpp-pdbml"]
+	path = modules/cpp-pdbml
+	url = https://github.com/rcsb/cpp-pdbml.git
+	branch = master
