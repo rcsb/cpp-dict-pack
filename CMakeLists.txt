@@ -43,6 +43,8 @@ set(BIN_DIR_10  "modules/cpp-misc-dict-util/bin")
 set(SOURCE_DIR_11  "modules/cpp-pdbml/src")
 set(INCLUDE_DIR_11 "modules/cpp-pdbml/include")
 #
+set(SOURCE_DIR_12  "modules/cpp-misc-xml-util/src")
+set(INCLUDE_DIR_12 "modules/cpp-misc-xml-util/include")
 
 #
 #  Build 'schema-map' library - not integrated in main library
@@ -126,7 +128,23 @@ set(SOURCES_11
 	     )
 add_library("pdbml" STATIC ${SOURCES_11})
 target_include_directories("pdbml" PUBLIC ${INCLUDE_DIR_11} ${BUILD_INCLUDE_DIR} ${BUILD_SOURCE_DIR})
-
+#
+#  Build 'mmcif-xml-util' library - not integrated in main library
+#
+set(SOURCES_12
+             "${SOURCE_DIR_12}/MmcifToXml.C"
+	     )
+add_library("mmcif-xml-util" STATIC ${SOURCES_12})
+target_include_directories("mmcif-xml-util" PUBLIC ${INCLUDE_DIR_12} ${INCLUDE_DIR_11} ${BUILD_INCLUDE_DIR})
+#
+add_executable("mmcif2XML" "${SOURCE_DIR_12}/mmcif2XML.C")
+target_link_libraries("mmcif2XML" "mmcif-xml-util" "pdbml" "mmciflib-all")
+target_include_directories("mmcif2XML" PUBLIC ${INCLUDE_DIR_12} ${INCLUDE_DIR_11} ${BUILD_INCLUDE_DIR})
+#
+add_executable("Dict2XMLSchema" "${SOURCE_DIR_12}/Dict2XMLSchema.C")
+target_link_libraries("Dict2XMLSchema" "mmcif-xml-util" "pdbml" "mmciflib-all")
+target_include_directories("Dict2XMLSchema" PUBLIC ${INCLUDE_DIR_12} ${INCLUDE_DIR_11} ${BUILD_INCLUDE_DIR})
+#
 
 
 

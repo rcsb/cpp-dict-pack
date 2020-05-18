@@ -41,3 +41,7 @@
 	path = modules/cpp-pdbml
 	url = https://github.com/rcsb/cpp-pdbml.git
 	branch = master
+[submodule "modules/cpp-misc-xml-util"]
+	path = modules/cpp-misc-xml-util
+	url = https://github.com/rcsb/cpp-misc-xml-util.git
+	branch = master
