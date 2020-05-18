@@ -25,6 +25,9 @@ set(BUILD_SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/src")
 set(BUILD_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/include")
 set(BUILD_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/bin")
 set(BUILD_LIBRARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/lib")
+set(BUILD_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}/html")
+
+file(MAKE_DIRECTORY ${BUILD_HTML_DIR})
 
 include(cmake/commonparser.cmake)
 
@@ -64,9 +67,9 @@ target_link_libraries("dict2HTML" "dict2htmllib" "mmciflib-all")
 target_include_directories("dict2HTML" PUBLIC ${BUILD_INCLUDE_DIR})
 file(INSTALL "${BIN_DIR_9}/DictToHTML.csh" DESTINATION bin)
 file(GLOB HTML_ICONS_9 "${ICONS_DIR_9}/*.gif")
-file(COPY ${HTML_ICONS_9} DESTINATION html/icons)
+file(COPY ${HTML_ICONS_9} DESTINATION ${BUILD_HTML_DIR}/icons)
 file(GLOB HTML_INCLUDES_9 "${HTML_INCLUDES_DIR_9}/*.txt")
-file(COPY ${HTML_INCLUDES_9} DESTINATION html/html-includes)
+file(COPY ${HTML_INCLUDES_9} DESTINATION ${BUILD_HTML_DIR}/html-includes)
 
 #
 #
