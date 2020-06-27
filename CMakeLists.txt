@@ -33,8 +33,13 @@ include(cmake/commonparser.cmake)
 # Build dict-pack tools
 include(cmake/dictpack.cmake)
 
-
-
+# Custom command to update git submodules
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+	     add_custom_target(checkout ${GIT_EXECUTABLE} submodule update 
+             				     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+					     COMMENT "Updating submodules")
+endif()
 
 #
 #
