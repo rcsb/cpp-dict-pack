@@ -36,10 +36,14 @@ include(cmake/dictpack.cmake)
 # Custom command to update git submodules
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
-  add_custom_target(checkout ${GIT_EXECUTABLE} submodule update 
+  add_custom_target(checkout-modules ${GIT_EXECUTABLE} submodule update 
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Updating submodules")
 endif()
+
+# Will checkout dpecific dictionaries and modules
+add_custom_target(checkout
+  DEPENDS checkout-modules)
 
 #
 #
