@@ -36,9 +36,9 @@ include(cmake/dictpack.cmake)
 # Custom command to update git submodules
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
-	     add_custom_target(checkout ${GIT_EXECUTABLE} submodule update 
-             				     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-					     COMMENT "Updating submodules")
+  add_custom_target(checkout ${GIT_EXECUTABLE} submodule update 
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMENT "Updating submodules")
 endif()
 
 #
@@ -52,6 +52,6 @@ set(CPACK_SOURCE_GENERATOR "TBZ2")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME
   "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 set(CPACK_SOURCE_IGNORE_FILES
-  "/build/;/.bzr/;.git/;.gitmodules/;~$;${CPACK_SOURCE_IGNORE_FILES}")
+  "/build/;/.bzr/;.git/;/.gitmodules;/.github/;/.gitignore;~$;/.*/.git;/.*/.svn;${CPACK_SOURCE_IGNORE_FILES}")
 include(CPack)
 add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
