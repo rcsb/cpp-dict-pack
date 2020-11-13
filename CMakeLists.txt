@@ -5,6 +5,7 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 project(dict-pack LANGUAGES C CXX)
 
+find_package(PythonInterp REQUIRED)
 
 # Do we need all of these - none seem to be used
 #set(mydefines " -DBIG_ENDIAN_PLATFORM  -DHAVE_STRCASECMP -DINCL_TEMPLATE_SRC -DHAVE_PLACEMENT_NEW  ")
@@ -32,6 +33,8 @@ file(MAKE_DIRECTORY ${BUILD_HTML_DIR})
 include(cmake/commonparser.cmake)
 # Build dict-pack tools
 include(cmake/dictpack.cmake)
+# Functions to build dictionaries
+include(cmake/dictfunc.cmake)
 
 # Custom command to update git submodules
 find_package(Git QUIET)
@@ -42,10 +45,19 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
   set(MODULE_CHECKOUT_DEP checkout-modules)
 endif()
 
-# Will checkout dpecific dictionaries and modules
+# Will checkout specific dictionaries and modules
 add_custom_target(checkout
   # COMMENT "CHECKOUT"
   DEPENDS ${MODULE_CHECKOUT_DEP})
+
+# Build dictionaries
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/mmcif")
+
+# mmcif_pdbx_v50
+set(EXTDICTS  mmcif_ddl mmcif_std  mmcif_pdbx_v40 )
+#foreach(DICT ${EXTDICTS})
+#  BUILD_DICT(${DICT})
+#endforeach()
 
 #
 #
