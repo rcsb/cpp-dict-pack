@@ -35,10 +35,13 @@ function(BUILD_DICT DICTNAME)
     COMMAND ${GEN_COMMAND}
     DEPENDS ${GEN_DEPENDENCIES} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gendict.py
     OUTPUT ${GEN_OUTPUTS}
+    BYPRODUCTS ${GEN_OUTPUTS}
     COMMENT "Generating the dictionary files for ${DICTNAME}."
     )
 
   add_custom_target(${DICTNAME} ALL
     DEPENDS ${GEN_OUTPUTS}
     )
+  # Remove explicitly directory
+  file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/mmcif/${DICTNAME})
 endfunction()
