@@ -39,7 +39,7 @@ function(BUILD_DICT DICTNAME)
     COMMENT "Generating the dictionary files for ${DICTNAME}."
     )
 
-  add_custom_target(${DICTNAME}_dic ALL
+  add_custom_target("${DICTNAME}_dic" ALL
     DEPENDS ${GEN_OUTPUTS}
     )
   # Remove explicitly directory
@@ -67,15 +67,21 @@ function(BUILD_SDB DICTNAME)
     message(FATAL_ERROR "Failed to get the GEN outputs" ${RET})
   endif()
 
-  add_custom_target(${DICTNAME}_sdb ALL
-    ./bin/CreateDictSdbFile.csh ${DICTNAME}
-    DEPENDS ${DICTNAME}_dic  "DictToSdb" "sdb" "mmcif_ddl_dic"
+  add_custom_command(
+    COMMAND ./bin/CreateDictSdbFile.csh ${DICTNAME}
+    DEPENDS ${GEN_OUTPUTS}  "DictToSdb" "sdb_dir" "mmcif_ddl_dic"
+    OUTPUT sdb/${DICTNAME}.sdb sdb/${DICTNAME}.log
+    BYPRODUCTS sdb/${DICTNAME}.sdb sdb/${DICTNAME}.log
     COMMENT "Building SDB file for ${DICTNAME}"
+    )
+
+  add_custom_target("${DICTNAME}_sdb"
+    DEPENDS sdb/${DICTNAME}.sdb ${DICTNAME}_dic 
     )
 
 endfunction()
 
 # Command to ensure sdb directory exists
-add_custom_target("sdb" ALL
+add_custom_target("sdb_dir" ALL
   COMMAND ${CMAKE_COMMAND} -E make_directory sdb)
 
