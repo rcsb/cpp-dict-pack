@@ -47,7 +47,9 @@ file(COPY ${HTML_INCLUDES_9} DESTINATION ${BUILD_HTML_DIR}/html-includes)
 #
 # Build executables from cpp-misc-dict-util
 #
-file(INSTALL "${BIN_DIR_10}/CreateDictSdbFile.csh" DESTINATION bin)
+file(INSTALL "${BIN_DIR_10}/CreateDictSdbFile.csh" DESTINATION bin
+  USE_SOURCE_PERMISSIONS
+  )
 
 add_executable("cifexch" "${SOURCE_DIR_10}/cifexch.C")
 target_link_libraries("cifexch" "mmciflib-all")
