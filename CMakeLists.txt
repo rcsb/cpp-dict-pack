@@ -52,13 +52,14 @@ add_custom_target(checkout
   # COMMENT "CHECKOUT"
   DEPENDS ${MODULE_CHECKOUT_DEP})
 
+#####################
 # Build dictionaries
-file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/mmcif")
 
 # List of dictionaries we are building
 set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
 
 foreach(DICT ${EXTDICTS})
+  GET_DICTIONARY(${DICT})
   BUILD_SDB(${DICT} ${EXTDICTS})
 endforeach()
 
@@ -66,6 +67,9 @@ add_custom_target(sdb
 	DEPENDS mmcif_ddl_sdb mmcif_pdbx_v5_next_sdb mmcif_pdbx_v50_sdb
 	)
 
+add_custom_target(everything
+	DEPENDS sdb
+	)
 #
 #
 # Distribution CPack configuration
