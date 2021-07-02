@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
            sudo apt-get clean
-           sudo apt-get install flex bison
+           sudo apt-get install flex bison csh
     # Runs a single command using the runners shell
     - name: configure
       run: cmake -S . -B build 
