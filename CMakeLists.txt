@@ -35,6 +35,8 @@ include(cmake/commonparser.cmake)
 include(cmake/dictpack.cmake)
 # Functions to build dictionaries
 include(cmake/dictfunc.cmake)
+# Functions to download dictionarys
+include(cmake/dictdownload.cmake)
 
 # Custom command to update git submodules
 find_package(Git QUIET)
@@ -53,11 +55,16 @@ add_custom_target(checkout
 # Build dictionaries
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/mmcif")
 
-# mmcif_pdbx_v50
-set(EXTDICTS  mmcif_ddl mmcif_std  mmcif_pdbx_v40 )
-#foreach(DICT ${EXTDICTS})
-#  BUILD_DICT(${DICT})
-#endforeach()
+# List of dictionaries we are building
+set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
+
+foreach(DICT ${EXTDICTS})
+  BUILD_SDB(${DICT} ${EXTDICTS})
+endforeach()
+
+add_custom_target(sdb
+	DEPENDS mmcif_ddl_sdb mmcif_pdbx_v5_next_sdb mmcif_pdbx_v50_sdb
+	)
 
 #
 #
