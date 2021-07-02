@@ -31,7 +31,7 @@ jobs:
     - name: configure
       run: mkdir build && cd build && cmake ..
     - name: build
-      run: cmake --build build
+      run: cmake --build build --target everything
     #- name: test
     #  run: cd build && ctest
     # Runs a set of commands using the runners shell
