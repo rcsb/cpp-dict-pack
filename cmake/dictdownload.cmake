@@ -10,7 +10,7 @@ function(download_file url filename)
 endfunction(download_file)
 
 function(download_dict url base)
-  download_file(${url} dicts/dict-${base}/${base}.dic)
+  download_file(${url} ${CMAKE_CURRENT_BINARY_DIR}/dicts/dict-${base}/${base}.dic)
 endfunction(download_dict)
 
 function(process_dict base)
