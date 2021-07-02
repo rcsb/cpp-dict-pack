@@ -91,8 +91,9 @@ function(BUILD_SDB DICTNAME DICTLIST)
 
   add_custom_command(
     OUTPUT sdb/${DICTNAME}.sdb sdb/${DICTNAME}.log
-    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bin/CreateDictSdbFile.csh ${DICTNAME}
-    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/bin/CreateDictSdbFile.csh ${GEN_OUTPUTS}  "DictToSdb" "sdb_dir" "mmcif_ddl_dic" ${_EXTRADEP}
+    COMMAND echo `pwd`;
+    COMMAND ./bin/CreateDictSdbFile.csh ${DICTNAME}
+    DEPENDS ./bin/CreateDictSdbFile.csh ${GEN_OUTPUTS}  "DictToSdb" "sdb_dir" "mmcif_ddl_dic" ${_EXTRADEP}
     COMMENT "Building SDB file for ${DICTNAME}"
     )
 
