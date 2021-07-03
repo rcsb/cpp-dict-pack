@@ -32,6 +32,9 @@ set(BUILD_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}/html")
 
 file(MAKE_DIRECTORY ${BUILD_HTML_DIR})
 
+# For extending installation of dict-obj-file programs
+set(BUILD_DICT_PACK_SUPPORT 1)
+
 include(cmake/commonparser.cmake)
 # Build dict-pack tools
 include(cmake/dictpack.cmake)
@@ -61,20 +64,27 @@ add_custom_target(checkout
 set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
 
 set(_SDB_LIST)
+set(_ODB_LIST)
 foreach(DICT ${EXTDICTS})
   GET_DICTIONARY(${DICT})
   BUILD_SDB(${DICT} ${EXTDICTS})
+  BUILD_ODB(${DICT})
   list(APPEND _SDB_LIST ${DICT}_sdb)
+  list(APPEND _ODB_LIST ${DICT}_odb)  
 endforeach()
 
 add_custom_target(sdb
   DEPENDS ${_SDB_LIST}
 )
 
+add_custom_target(odb
+  DEPENDS ${_ODB_LIST}
+)
+
 
 
 add_custom_target(everything
-	DEPENDS sdb
+	DEPENDS sdb odb
 	)
 #
 #

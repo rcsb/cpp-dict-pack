@@ -15,6 +15,7 @@ set(INCLUDE_DIR_5 "modules/cpp-cif-file-util/include")
 
 set(SOURCE_DIR_6  "modules/cpp-dict-obj-file/src")
 set(INCLUDE_DIR_6 "modules/cpp-dict-obj-file/include")
+set(BIN_DIR_6  "modules/cpp-dict-obj-file/bin")
 
 set(SOURCE_DIR_7  "modules/cpp-cif-parser/src")
 set(INCLUDE_DIR_7 "modules/cpp-cif-parser/include")
@@ -160,7 +161,23 @@ set(SOURCES_6
 
 add_library("dict-obj-file"  OBJECT ${SOURCES_6})
 target_include_directories("dict-obj-file" PUBLIC ${BUILD_INCLUDE_DIR})
+if(BUILD_DICT_PACK_SUPPORT)
+  file(INSTALL "${BIN_DIR_6}/CreateDictObjFile.csh" DESTINATION bin
+  USE_SOURCE_PERMISSIONS
+  )
 
+  add_executable("DictObjFileCreator" "${SOURCE_DIR_6}/DictObjFileCreator.C")
+  target_link_libraries("DictObjFileCreator" "mmciflib-all")
+  target_include_directories("DictObjFileCreator" PUBLIC ${INCLUDE_DIR_6} ${BUILD_INCLUDE_DIR})
+
+  add_executable("DictObjFileReader" "${SOURCE_DIR_6}/DictObjFileReader.C")
+  target_link_libraries("DictObjFileReader" "mmciflib-all")
+  target_include_directories("DictObjFileReader" PUBLIC ${INCLUDE_DIR_6} ${BUILD_INCLUDE_DIR})
+
+  add_executable("DictObjFileSelectiveReader" "${SOURCE_DIR_6}/DictObjFileSelectiveReader.C")
+  target_link_libraries("DictObjFileSelectiveReader" "mmciflib-all")
+  target_include_directories("DictObjFileSelectiveReader" PUBLIC ${INCLUDE_DIR_6} ${BUILD_INCLUDE_DIR})
+endif()
 #
 #  Build 'cif-parser' library
 #

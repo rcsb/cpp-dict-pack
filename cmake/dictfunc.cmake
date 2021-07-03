@@ -46,6 +46,8 @@
 #   file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/dicts/dict-${DICTNAME})
 # endfunction()
 
+####################  SDB Generation ############################
+
 # The trick here to break parallelism is to depend on prior SDB before continuing
 function(BUILD_SDB DICTNAME DICTLIST)
   # Convert list comming in toproper list
@@ -106,3 +108,21 @@ endfunction()
 add_custom_target("sdb_dir" ALL
   COMMAND ${CMAKE_COMMAND} -E make_directory sdb)
 
+####################  ODB Generation ############################
+
+# Command to ensure odb directory exists
+add_custom_target("odb_dir" ALL
+  COMMAND ${CMAKE_COMMAND} -E make_directory odb)
+
+function(BUILD_ODB DICTNAME)
+  add_custom_command(
+    OUTPUT odb/${DICTNAME}.odb odb/${DICTNAME}.log
+    COMMAND bin/CreateDictObjFile.csh ${DICTNAME}
+    DEPENDS bin/CreateDictObjFile.csh "DictObjFileCreator" odb_dir ${DICTNAME}_sdb sdb/${DICTNAME}.sdb
+    COMMENT "Building ODB file for ${DICTNAME}"
+    )
+
+  add_custom_target(${DICTNAME}_odb
+    DEPENDS odb/${DICTNAME}.odb sdb/${DICTNAME}.sdb
+    )
+endfunction(BUILD_ODB)
