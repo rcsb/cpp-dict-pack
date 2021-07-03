@@ -29,9 +29,9 @@ jobs:
            sudo apt-get install flex bison csh
     # Runs a single command using the runners shell
     - name: configure
-      run: cmake -S . -B build 
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=RELEASE
     - name: build
-      run: cmake --build build --target everything
+      run: cmake --build build --target everything -j
     #- name: test
     #  run: cd build && ctest
     # Runs a set of commands using the runners shell
