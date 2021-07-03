@@ -60,14 +60,18 @@ add_custom_target(checkout
 # List of dictionaries we are building
 set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
 
+set(_SDB_LIST)
 foreach(DICT ${EXTDICTS})
   GET_DICTIONARY(${DICT})
   BUILD_SDB(${DICT} ${EXTDICTS})
+  list(APPEND _SDB_LIST ${DICT}_sdb)
 endforeach()
 
 add_custom_target(sdb
-	DEPENDS mmcif_ddl_sdb mmcif_pdbx_v5_next_sdb mmcif_pdbx_v50_sdb
-	)
+  DEPENDS ${_SDB_LIST}
+)
+
+
 
 add_custom_target(everything
 	DEPENDS sdb
