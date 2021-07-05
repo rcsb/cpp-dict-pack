@@ -37,10 +37,15 @@ set(SOURCES_9
 	     )
 add_library("dict2htmllib" STATIC ${SOURCES_9})
 target_include_directories("dict2htmllib" PUBLIC ${INCLUDE_DIR_9} ${BUILD_INCLUDE_DIR})
+
 add_executable("dict2HTML" "${SOURCE_DIR_9}/dict2HTML.C")
 target_link_libraries("dict2HTML" "dict2htmllib" "mmciflib-all")
 target_include_directories("dict2HTML" PUBLIC ${BUILD_INCLUDE_DIR})
-file(INSTALL "${BIN_DIR_9}/DictToHTML.csh" DESTINATION bin)
+
+file(INSTALL "${BIN_DIR_9}/DictToHTML.csh" DESTINATION bin
+  USE_SOURCE_PERMISSIONS
+  )
+
 file(GLOB HTML_ICONS_9 "${ICONS_DIR_9}/*.gif")
 file(COPY ${HTML_ICONS_9} DESTINATION ${BUILD_HTML_DIR}/icons)
 file(GLOB HTML_INCLUDES_9 "${HTML_INCLUDES_DIR_9}/*.txt")
