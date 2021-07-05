@@ -65,12 +65,15 @@ set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
 
 set(_SDB_LIST)
 set(_ODB_LIST)
+set(_XML_LIST)
 foreach(DICT ${EXTDICTS})
   GET_DICTIONARY(${DICT})
   BUILD_SDB(${DICT} ${EXTDICTS})
   BUILD_ODB(${DICT})
+  BUILD_XML(${DICT})  
   list(APPEND _SDB_LIST ${DICT}_sdb)
-  list(APPEND _ODB_LIST ${DICT}_odb)  
+  list(APPEND _ODB_LIST ${DICT}_odb)
+  list(APPEND _XML_LIST ${DICT}_xml)    
 endforeach()
 
 add_custom_target(sdb
@@ -81,10 +84,14 @@ add_custom_target(odb
   DEPENDS ${_ODB_LIST}
 )
 
+add_custom_target(xml_v50
+  DEPENDS ${_XML_LIST}
+)
+
 
 
 add_custom_target(everything
-	DEPENDS sdb odb
+	DEPENDS sdb odb xml_v50
 	)
 #
 #

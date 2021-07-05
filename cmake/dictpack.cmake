@@ -13,6 +13,7 @@ set(INCLUDE_DIR_11 "modules/cpp-pdbml/include")
 #
 set(SOURCE_DIR_12  "modules/cpp-misc-xml-util/src")
 set(INCLUDE_DIR_12 "modules/cpp-misc-xml-util/include")
+set(BIN_DIR_12 "modules/cpp-misc-xml-util/bin")
 
 #
 #  Build 'schema-map' library - not integrated in main library
@@ -115,3 +116,7 @@ add_executable("Dict2XMLSchema" "${SOURCE_DIR_12}/Dict2XMLSchema.C")
 target_link_libraries("Dict2XMLSchema" "mmcif-xml-util" "pdbml" "mmciflib-all")
 target_include_directories("Dict2XMLSchema" PUBLIC ${INCLUDE_DIR_12} ${INCLUDE_DIR_11} ${BUILD_INCLUDE_DIR})
 #
+file(INSTALL "${BIN_DIR_12}/Dict2XMLSchema.csh" DESTINATION bin
+  USE_SOURCE_PERMISSIONS
+  )
+

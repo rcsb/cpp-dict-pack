@@ -126,3 +126,23 @@ function(BUILD_ODB DICTNAME)
     DEPENDS odb/${DICTNAME}.odb sdb/${DICTNAME}.sdb
     )
 endfunction(BUILD_ODB)
+
+
+####################  XML Generation ############################
+
+# Command to ensure odb directory exists
+add_custom_target("xml_v50_dir" ALL
+  COMMAND ${CMAKE_COMMAND} -E make_directory xml_v50)
+
+function(BUILD_XML DICTNAME)
+  add_custom_command(
+    OUTPUT xml_v50/${DICTNAME}.xml xml_v50/${DICTNAME}.log
+    COMMAND bin/Dict2XMLSchema.csh ${DICTNAME} v50
+    DEPENDS bin/Dict2XMLSchema.csh "DictObjFileCreator" xml_v50_dir ${DICTNAME}_odb odb/${DICTNAME}.odb
+    COMMENT "Building XML_V50 file for ${DICTNAME}"
+    )
+
+  add_custom_target(${DICTNAME}_xml
+    DEPENDS odb/${DICTNAME}.odb xml_v50/${DICTNAME}.xml
+    )
+endfunction(BUILD_XML)
