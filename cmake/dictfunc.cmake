@@ -129,20 +129,44 @@ endfunction(BUILD_ODB)
 
 
 ####################  XML Generation ############################
-
-# Command to ensure odb directory exists
-add_custom_target("xml_v50_dir" ALL
-  COMMAND ${CMAKE_COMMAND} -E make_directory xml_v50)
-
 function(BUILD_XML DICTNAME)
+  set(GEN_COMMAND
+    ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictversion.py
+    --dict-file ${CMAKE_CURRENT_BINARY_DIR}/dicts/dict-${DICTNAME}/${DICTNAME}.dic
+    --print-xsdname
+    )
+
+  execute_process(
+    COMMAND ${GEN_COMMAND}
+    OUTPUT_VARIABLE DICT_VERS
+    RESULT_VARIABLE RET
+    )
+
+  if (NOT RET EQUAL 0)
+    message(FATAL_ERROR "Failed to get the $DICTNAME version " ${RET})
+  endif()
+
+  message(STATUS "Dictionary version for ${DICTNAME} is ${DICT_VERS}")
+
+  # Conditional naming...
+  
+
   add_custom_command(
-    OUTPUT xml_v50/${DICTNAME}.xml xml_v50/${DICTNAME}.log
+    OUTPUT xml_v50/${DICTNAME}.log xml_v50/${DICT_VERS}
+    # xsd versioned...
     COMMAND bin/Dict2XMLSchema.csh ${DICTNAME} v50
-    DEPENDS bin/Dict2XMLSchema.csh "DictObjFileCreator" xml_v50_dir ${DICTNAME}_odb odb/${DICTNAME}.odb
+    DEPENDS bin/Dict2XMLSchema.csh "Dict2XMLSchema" xml_v50_dir ${DICTNAME}_odb odb/${DICTNAME}.odb
     COMMENT "Building XML_V50 file for ${DICTNAME}"
     )
 
   add_custom_target(${DICTNAME}_xml
-    DEPENDS odb/${DICTNAME}.odb xml_v50/${DICTNAME}.xml
+    DEPENDS xml_v50/${DICTNAME}.log odb/${DICTNAME}.odb
     )
 endfunction(BUILD_XML)
+
+
+
+# Command to ensure xml_v50 directory exists
+add_custom_target("xml_v50_dir" ALL
+  COMMAND ${CMAKE_COMMAND} -E make_directory xml_v50)
+

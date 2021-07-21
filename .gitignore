@@ -15,3 +15,6 @@ _deps
 
 # build directory
 build/
+
+# Python compiled files
+*.pyc
