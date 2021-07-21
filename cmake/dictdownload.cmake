@@ -32,13 +32,24 @@ endfunction(download_process_dict)
 
 
 function(GET_DICTIONARY DICTNAME)
-  if(DICTNAME STREQUAL mmcif_ddl)
-    download_process_dict(https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_ddl/master/dist/mmcif_ddl.dic  mmcif_ddl)
-  elseif(DICTNAME STREQUAL mmcif_pdbx_v5_next)
-    download_process_dict(https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/dist/mmcif_pdbx_v5_next.dic mmcif_pdbx_v5_next)
-  elseif(DICTNAME STREQUAL mmcif_pdbx_v50)
-    download_process_dict(https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/dist/mmcif_pdbx_v50.dic mmcif_pdbx_v50)
-  else()
-    message(FATAL_ERROR "Do not know how to retrieve ${DICTNAME}")
+ # Determine download location from dictionary configuration
+ set(GEN_COMMAND
+    ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictinfo.py
+    --dictname ${DICTNAME}
+    --print-url
+    )
+
+  execute_process(
+    COMMAND ${GEN_COMMAND}
+    OUTPUT_VARIABLE DICT_URL
+    RESULT_VARIABLE RET
+    )
+
+  if (NOT RET EQUAL 0)
+    message(FATAL_ERROR "Failed to get the $DICTNAME url " ${RET})
   endif()
+
+  # message(STATUS "Dictionary url for ${DICTNAME} is ${DICT_URL}")
+
+  download_process_dict(${DICT_URL} ${DICTNAME})
 endfunction(GET_DICTIONARY)
