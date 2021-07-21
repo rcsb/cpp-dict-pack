@@ -5,7 +5,7 @@ message("Cmake version: ${CMAKE_VERSION}")
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-project(dict-pack LANGUAGES C CXX)
+project(dict-pack C CXX)
 
 find_package(PythonInterp REQUIRED)
 
