@@ -93,8 +93,8 @@ function(BUILD_SDB DICTNAME DICTLIST)
 
   add_custom_command(
     OUTPUT sdb/${DICTNAME}.sdb sdb/${DICTNAME}.log
-    COMMAND ./bin/CreateDictSdbFile.csh ${DICTNAME}
-    DEPENDS ./bin/CreateDictSdbFile.csh ${GEN_OUTPUTS}  "DictToSdb" "sdb_dir" "mmcif_ddl_dic" ${_EXTRADEP}
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bin/CreateDictSdbFile.csh ${DICTNAME}
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/bin/CreateDictSdbFile.csh ${GEN_OUTPUTS}  "DictToSdb" "sdb_dir" "mmcif_ddl_dic" ${_EXTRADEP}
     COMMENT "Building SDB file for ${DICTNAME}"
     )
 
@@ -117,8 +117,8 @@ add_custom_target("odb_dir" ALL
 function(BUILD_ODB DICTNAME)
   add_custom_command(
     OUTPUT odb/${DICTNAME}.odb odb/${DICTNAME}.log
-    COMMAND bin/CreateDictObjFile.csh ${DICTNAME}
-    DEPENDS bin/CreateDictObjFile.csh "DictObjFileCreator" odb_dir ${DICTNAME}_sdb sdb/${DICTNAME}.sdb
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bin/CreateDictObjFile.csh ${DICTNAME}
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/bin/CreateDictObjFile.csh "DictObjFileCreator" odb_dir ${DICTNAME}_sdb sdb/${DICTNAME}.sdb
     COMMENT "Building ODB file for ${DICTNAME}"
     )
 
@@ -154,8 +154,8 @@ function(BUILD_XML DICTNAME)
   add_custom_command(
     OUTPUT xml_v50/${DICTNAME}.log xml_v50/${DICT_VERS}
     # xsd versioned...
-    COMMAND bin/Dict2XMLSchema.csh ${DICTNAME} v50
-    DEPENDS bin/Dict2XMLSchema.csh "Dict2XMLSchema" xml_v50_dir ${DICTNAME}_odb odb/${DICTNAME}.odb
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bin/Dict2XMLSchema.csh ${DICTNAME} v50
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/bin/Dict2XMLSchema.csh "Dict2XMLSchema" xml_v50_dir ${DICTNAME}_odb odb/${DICTNAME}.odb
     COMMENT "Building XML_V50 file for ${DICTNAME}"
     )
 
