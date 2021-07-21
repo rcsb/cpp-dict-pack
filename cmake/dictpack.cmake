@@ -42,6 +42,8 @@ add_executable("dict2HTML" "${SOURCE_DIR_9}/dict2HTML.C")
 target_link_libraries("dict2HTML" "dict2htmllib" "mmciflib-all")
 target_include_directories("dict2HTML" PUBLIC ${BUILD_INCLUDE_DIR})
 
+set(DICTPACK_ALLEXE ${DICTPACK_ALLEXE} dict2HTML)
+
 file(INSTALL "${BIN_DIR_9}/DictToHTML.csh" DESTINATION bin
   USE_SOURCE_PERMISSIONS
   )
@@ -93,6 +95,7 @@ add_executable("non_printable" "${SOURCE_DIR_10}/non_printable.C")
 target_link_libraries("non_printable" "mmciflib-all")
 target_include_directories("non_printable" PUBLIC ${BUILD_INCLUDE_DIR})
 
+set(DICTPACK_ALLEXE ${DICTPACK_ALLEXE} cifexch cifexch2 mk-schema-map-dict CifCheck cif_corrector sf_corrector DictInfo DictToSdb non_printable)
 #
 #  Build 'pdbml' library - not integrated in main library
 #
@@ -125,3 +128,5 @@ file(INSTALL "${BIN_DIR_12}/Dict2XMLSchema.csh" DESTINATION bin
   USE_SOURCE_PERMISSIONS
   )
 
+set(DICTPACK_ALLEXE ${DICTPACK_ALLEXE} Dict2XMLSchema mmcif2XML)
+message(STATUS "DICTPACK ALLEXE is ${DICTPACK_ALLEXE}" zF)

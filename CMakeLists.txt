@@ -91,7 +91,7 @@ add_custom_target(xml_v50
 
 
 add_custom_target(everything
-	DEPENDS sdb odb xml_v50
+	DEPENDS ${DICTPACK_ALLEXE} sdb odb xml_v50
 	)
 #
 #
