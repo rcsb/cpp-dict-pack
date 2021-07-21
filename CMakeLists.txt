@@ -104,6 +104,15 @@ set(CPACK_SOURCE_GENERATOR "TBZ2")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME
   "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 set(CPACK_SOURCE_IGNORE_FILES
-  "/build/;/.bzr/;.git/;/.gitmodules;/.github/;/.gitignore;~$;/.*/.git;/.*/.svn;${CPACK_SOURCE_IGNORE_FILES}")
+  "/build/;/.bzr/;.git/;/.gitmodules;/.github/;/.gitignore;~$;/.*/.git;/.*/.svn;.idea/;${CPACK_SOURCE_IGNORE_FILES}")
+# Inspired by https://jtanx.github.io/2019/08/22/cmake-dist-customisation/ package selected dictionaries
+set(CPACK_INSTALL_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/CPackExtraDist.cmake")
+  configure_file("${CMAKE_SOURCE_DIR}/cmake/ExtraDist.cmake.in" "CPackExtraDist.cmake" @ONLY)
 include(CPack)
-add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
+#add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
+add_custom_target(dist
+    COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target package_source
+    # DEPENDS test_dependencies
+    VERBATIM
+    USES_TERMINAL
+  )
