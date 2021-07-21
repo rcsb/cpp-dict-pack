@@ -61,7 +61,7 @@ add_custom_target(checkout
 # Build dictionaries
 
 # List of dictionaries we are building
-set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
+set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50 mmcif_ihm mmcif_pdbx_vrpt)
 
 set(_SDB_LIST)
 set(_ODB_LIST)

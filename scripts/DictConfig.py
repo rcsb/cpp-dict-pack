@@ -1,7 +1,11 @@
 class DictConfig(object):
     """Class describing the configuration of dictionaries"""
 
-    # These need to be un sync with
+    # These need to be in sync with Dict2XMLSchema.csh
+    # prefix -- base of XSD file
+    # url -- how to download dictionary
+    # ns (not used yet)
+    # dname (not used yet)
     __dictmap = {
         "mmcif_pdbx_v32": {
             "prefix": "pdbx-v32",
@@ -25,7 +29,19 @@ class DictConfig(object):
             "ns": "PDBx",
             "dName": "mmcif_pdbx",
             "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/dist/mmcif_pdbx_v50.dic"
-        }
+        },
+        "mmcif_ihm": {
+            "prefix": "mmcif_ihm",
+            "ns": "mmcif_ihm",
+            "dName": "ihm-extension",
+            "url": "https://raw.githubusercontent.com/ihmwg/IHM-dictionary/master/ihm-extension.dic"
+        },
+        "mmcif_pdbx_vrpt": {
+            "prefix": "mmcif_pdbx_vrpt",
+            "ns": "mmcif_pdbx_vrpt",
+            "dName": "mmcif_pdbx_vrpt",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx_vrpt/master/dist/mmcif_pdbx_vrpt.dic"
+        },
 
     }
 
