@@ -37,7 +37,7 @@ class DictVersion(object):
         dname = bname.split(".")[0]
 
         dc = DictConfig()
-        prefix = dc.getPrefix(dname)
+        prefix = dc.get_prefix(dname)
         if prefix:
             vout = "%s-v%s.xsd" % (prefix, vers)
             return vout
