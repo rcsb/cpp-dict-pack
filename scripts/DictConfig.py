@@ -34,15 +34,20 @@ class DictConfig(object):
             "prefix": "mmcif_ihm",
             "ns": "mmcif_ihm",
             "dName": "ihm-extension",
-            "url": "https://raw.githubusercontent.com/ihmwg/IHM-dictionary/master/ihm-extension.dic"
+            "url": "https://raw.githubusercontent.com/ihmwg/IHM-dictionary/master/ihm-extension.dic",
+            "suppress_xml": True
         },
         "mmcif_pdbx_vrpt": {
             "prefix": "mmcif_pdbx_vrpt",
             "ns": "mmcif_pdbx_vrpt",
             "dName": "mmcif_pdbx_vrpt",
-            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx_vrpt/master/dist/mmcif_pdbx_vrpt.dic"
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx_vrpt/master/dist/mmcif_pdbx_vrpt.dic",
+            "suppress_xml": True
         },
-
+        "mmcif_ma": {
+            "url": "https://raw.githubusercontent.com/ihmwg/MA-dictionary/master/mmcif_ma.dic",
+            "suppress_xml": True
+        }
     }
 
     def get_prefix(self, dname):
@@ -53,4 +58,10 @@ class DictConfig(object):
     def get_url(self, dname):
         if dname in self.__dictmap:
             return self.__dictmap[dname]["url"]
+        return None
+
+    def should_suppress_xml(self, dname):
+        if dname in self.__dictmap:
+            val = self.__dictmap[dname].get("suppress_xml", False)
+            return val
         return None

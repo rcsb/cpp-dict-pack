@@ -165,8 +165,31 @@ function(BUILD_XML DICTNAME)
 endfunction(BUILD_XML)
 
 
-
 # Command to ensure xml_v50 directory exists
 add_custom_target("xml_v50_dir" ALL
   COMMAND ${CMAKE_COMMAND} -E make_directory xml_v50)
 
+####################################
+# Should build XML support for this dictionary
+function(SHOULD_SUPPRESS_XML DICTNAME RET_VALUE)
+  set(GEN_COMMAND
+    ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictinfo.py
+    --dictname ${DICTNAME}
+    --print-suppress-xml
+    )
+
+  execute_process(
+    COMMAND ${GEN_COMMAND}
+    OUTPUT_VARIABLE DICT_SUPP
+    RESULT_VARIABLE RET
+    )
+
+  if (NOT RET EQUAL 0)
+    message(FATAL_ERROR "Failed to get the $DICTNAME suppress XML " ${RET})
+  endif()
+
+  # message(STATUS "Suppress XML ${DICTNAME} is ${DICT_SUPP}")
+
+  set(${RET_VALUE} ${DICT_SUPP} PARENT_SCOPE)
+
+endfunction(SHOULD_SUPPRESS_XML)

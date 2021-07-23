@@ -61,7 +61,7 @@ add_custom_target(checkout
 # Build dictionaries
 
 # List of dictionaries we are building
-set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50 mmcif_ihm mmcif_pdbx_vrpt)
+set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50 mmcif_ihm mmcif_pdbx_vrpt mmcif_ma)
 
 set(_SDB_LIST)
 set(_ODB_LIST)
@@ -69,11 +69,18 @@ set(_XML_LIST)
 foreach(DICT ${EXTDICTS})
   GET_DICTIONARY(${DICT})
   BUILD_SDB(${DICT} ${EXTDICTS})
-  BUILD_ODB(${DICT})
-  BUILD_XML(${DICT})  
   list(APPEND _SDB_LIST ${DICT}_sdb)
-  list(APPEND _ODB_LIST ${DICT}_odb)
-  list(APPEND _XML_LIST ${DICT}_xml)    
+
+  # Determine if xml support needed for this dictionary
+  SHOULD_SUPPRESS_XML(${DICT} RET)
+  # message(STATUS "SUPPRESS ${RET}")
+  if (${RET} STREQUAL "False")
+    BUILD_ODB(${DICT})
+    BUILD_XML(${DICT})
+
+    list(APPEND _ODB_LIST ${DICT}_odb)
+    list(APPEND _XML_LIST ${DICT}_xml)
+  endif()
 endforeach()
 
 add_custom_target(sdb
