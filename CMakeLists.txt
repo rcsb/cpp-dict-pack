@@ -60,15 +60,23 @@ add_custom_target(checkout
 #####################
 # Build dictionaries
 
-# List of dictionaries we are building
-set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50 mmcif_ihm mmcif_pdbx_vrpt mmcif_ma)
+# List of dictionaries we are building.  EXTDICTS are built all the time.
+# INTDICTS are not built in distribution.
+set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/DictPackDist.txt)
+   set(INTDICTS mmcif_ihm mmcif_pdbx_vrpt mmcif_ma)
+else()
+   set(INTDICTS)
+endif()
+
 
 set(_SDB_LIST)
 set(_ODB_LIST)
 set(_XML_LIST)
-foreach(DICT ${EXTDICTS})
+set(ALLDICTS ${EXTDICTS} ${INTDICTS})
+foreach(DICT ${ALLDICTS})
   GET_DICTIONARY(${DICT})
-  BUILD_SDB(${DICT} ${EXTDICTS})
+  BUILD_SDB(${DICT} ${ALLDICTS})
   list(APPEND _SDB_LIST ${DICT}_sdb)
 
   # Determine if xml support needed for this dictionary
@@ -104,10 +112,10 @@ add_custom_target(everything
 #
 # Distribution CPack configuration
 #
-set(CPACK_PACKAGE_VERSION_MAJOR "0")
-set(CPACK_PACKAGE_VERSION_MINOR "2")
-set(CPACK_PACKAGE_VERSION_PATCH "3")
-set(CPACK_SOURCE_GENERATOR "TBZ2")
+set(CPACK_PACKAGE_VERSION_MAJOR "2")
+set(CPACK_PACKAGE_VERSION_MINOR "999")
+set(CPACK_PACKAGE_VERSION_PATCH "0")
+set(CPACK_SOURCE_GENERATOR "TBZ2;TGZ")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME
   "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 set(CPACK_SOURCE_IGNORE_FILES
@@ -116,7 +124,6 @@ set(CPACK_SOURCE_IGNORE_FILES
 set(CPACK_INSTALL_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/CPackExtraDist.cmake")
   configure_file("${CMAKE_SOURCE_DIR}/cmake/ExtraDist.cmake.in" "CPackExtraDist.cmake" @ONLY)
 include(CPack)
-#add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
 add_custom_target(dist
     COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target package_source
     # DEPENDS test_dependencies

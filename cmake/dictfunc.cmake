@@ -50,7 +50,7 @@
 
 # The trick here to break parallelism is to depend on prior SDB before continuing
 function(BUILD_SDB DICTNAME DICTLIST)
-  # Convert list comming in toproper list
+  # Convert list comming in to proper list
   set(_DICTLIST ${DICTLIST} ${ARGN})
   # Locate DICTNAME in list - so we can depend on prior
   list(FIND _DICTLIST ${DICTNAME} _DINDEX)
