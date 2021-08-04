@@ -7,11 +7,6 @@ class DictConfig(object):
     # ns (not used yet)
     # dname (not used yet)
     __dictmap = {
-        "mmcif_pdbx_v32": {
-            "prefix": "pdbx-v32",
-            "ns": "PDBx",
-            "dName": "mmcif_pdbx",
-        },
         "mmcif_ddl": {
             "prefix": "mmcif_ddl",
             "ns": "mmcif_ddl",
@@ -29,6 +24,37 @@ class DictConfig(object):
             "ns": "PDBx",
             "dName": "mmcif_pdbx",
             "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/dist/mmcif_pdbx_v50.dic"
+        },
+        "mmcif_pdbx_v40": {
+            "prefix": "pdbx-v40",
+            "ns": "PDBx",
+            "dName": "mmcif_pdbx",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/previous/dist/mmcif_pdbx_v40.dic",
+            "suppress_xml": True  # We were not producing xml schema - probably v41.
+        },
+        "mmcif_pdbx_v41": {
+            "prefix": "pdbx-v40",  # Not sure why this is v40 instead of v41
+            "ns": "PDBx",
+            "dName": "mmcif_pdbx",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/previous/dist/mmcif_pdbx_v41.dic"
+        },
+        "mmcif_pdbx_v42": {
+            "prefix": "pdbx-v42",
+            "ns": "PDBx",
+            "dName": "mmcif_pdbx",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/previous/dist/mmcif_pdbx_v42.dic"
+        },
+        "mmcif_pdbx_v31": {
+            "prefix": "pdbx",
+            "ns": "PDBx",
+            "dName": "mmcif_pdbx",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/previous/dist/mmcif_pdbx_v31.dic"
+        },
+        "mmcif_pdbx_v32": {
+            "prefix": "pdbx-v32",
+            "ns": "PDBx",
+            "dName": "mmcif_pdbx",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/previous/dist/mmcif_pdbx_v32.dic"
         },
         "mmcif_ihm": {
             "prefix": "mmcif_ihm",
