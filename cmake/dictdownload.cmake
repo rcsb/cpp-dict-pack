@@ -46,7 +46,7 @@ function(GET_DICTIONARY DICTNAME)
     )
 
   if (NOT RET EQUAL 0)
-    message(FATAL_ERROR "Failed to get the $DICTNAME url " ${RET})
+    message(FATAL_ERROR "Failed to get the ${DICTNAME} dictionary url " ${RET})
   endif()
 
   # message(STATUS "Dictionary url for ${DICTNAME} is ${DICT_URL}")
