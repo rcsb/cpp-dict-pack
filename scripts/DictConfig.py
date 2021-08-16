@@ -73,7 +73,68 @@ class DictConfig(object):
         "mmcif_ma": {
             "url": "https://raw.githubusercontent.com/ihmwg/MA-dictionary/master/mmcif_ma.dic",
             "suppress_xml": True
-        }
+        },
+        "mmcif_biosync": {
+            "prefix": "mmcif_biosync",
+            "ns": "biosync",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_biosync.dic"
+        },
+        "mmcif_ccp4": {
+            "prefix": "mmcif_ccp4",
+            "ns": "ccp4",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_ccp4.dic"
+        },
+        "mmcif_em": {
+            "prefix": "mmcif_em",
+            "ns": "mmcif_em",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_em.dic"
+        },
+        "mmcif_img": {
+            "prefix": "mmcif_img",
+            "ns": "mmcif_img",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_img.dic"
+        },
+        "mmcif_ndb_ntc": {
+            "prefix": "mmcif_ndb_ntc",
+            "ns": "mmcif_ndb_ntc",
+            "dName": "ndb-ntc-extension",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_ndb_ntc.dic"
+        },
+        "mmcif_nef": {
+            "prefix": "mmcif_nef",
+            "ns": "mmcif_nef",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_nef.dic"
+        },
+        "mmcif_nmr-star": {
+            "prefix": "mmcif_nmr-star",
+            "ns": "nmrstar",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_nmr-star.dic"
+        },
+        "mmcif_rcsb_nmr": {
+            "prefix": "mmcif_rcsb_nmr",
+            "ns": "RCSB",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_rcsb_nmr.dic"
+        },
+        "mmcif_rcsb_xray": {
+            "prefix": "mmcif_rcsb_xray",
+            "ns": "RCSB",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_rcsb_xray.dic"
+        },
+        "mmcif_sas": {
+            "prefix": "mmcif_sas",
+            "ns": "mmcif_sas",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_sas.dic"
+        },
+        "mmcif_std": {
+            "prefix": "mmcif_std",
+            "ns": "mmCIF",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_std.dic"
+        },
+        "mmcif_sym": {
+            "prefix": "mmcif_sym",
+            "ns": "mmcif_sym",
+            "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_sym.dic"
+        },
     }
 
     def get_prefix(self, dname):

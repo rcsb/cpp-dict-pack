@@ -143,7 +143,7 @@ function(BUILD_XML DICTNAME)
     )
 
   if (NOT RET EQUAL 0)
-    message(FATAL_ERROR "Failed to get the $DICTNAME version " ${RET})
+    message(FATAL_ERROR "Failed to get the ${DICTNAME} version " ${RET})
   endif()
 
   message(STATUS "Dictionary version for ${DICTNAME} is ${DICT_VERS}")
