@@ -1,7 +1,7 @@
 function(download_file url filename)
 
   if(NOT EXISTS ${filename})
-    message("Downloading  ${url} -> ${filename}")
+    message(STATUS "Downloading  ${url} -> ${filename}")
     file(DOWNLOAD ${url} ${filename}
       TIMEOUT 60  # seconds
       )
@@ -31,6 +31,25 @@ function(download_process_dict url base)
   process_dict(${base})
 endfunction(download_process_dict)
 
+# copy dictionary frmo source - if not present.  Assumes source exists
+function(copy_source_dict base)
+  if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/dicts/dict-${base}/${base}.dic)
+    message(STATUS "Copying dictionary from ${CMAKE_CURRENT_SOURCE_DIR}/dicts/dict-${base}/${base}.dic")
+    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/dicts/dict-${base}/${base}.dic
+      DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/dicts/dict-${base}/)
+  endif()
+endfunction(copy_source_dict)
+  
+# Fetches from source directory - copy or download (ALWAYS_DOWNLOAD_DICTS can override
+function(fetch_process_dict url base)
+  if(NOT ALWAYS_DOWNLOAD_DICTS AND EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/dicts/dict-${base}/${base}.dic)
+    copy_source_dict(${base})
+  else()
+    download_dict(${url} ${base})
+  endif()
+  process_dict(${base})
+endfunction(fetch_process_dict)
+
 
 function(GET_DICTIONARY DICTNAME)
  # Determine download location from dictionary configuration
@@ -52,5 +71,5 @@ function(GET_DICTIONARY DICTNAME)
 
   # message(STATUS "Dictionary url for ${DICTNAME} is ${DICT_URL}")
 
-  download_process_dict(${DICT_URL} ${DICTNAME})
+  fetch_process_dict(${DICT_URL} ${DICTNAME})
 endfunction(GET_DICTIONARY)

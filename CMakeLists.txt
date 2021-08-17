@@ -12,6 +12,10 @@ find_package(PythonInterp REQUIRED)
 # Do we need all of these - none seem to be used
 #set(mydefines " -DBIG_ENDIAN_PLATFORM  -DHAVE_STRCASECMP -DINCL_TEMPLATE_SRC -DHAVE_PLACEMENT_NEW  ")
 
+# Normally we download/build a complete set of dictionaries (unless in distribution). If set, only a subset of dictionaries are uilt
+option(MINIMAL_DICTS "If boolean is ON, then only compile a subset of dictionaries")
+# In sourcdir/dicts present and dictionary present, it will be used.  Force download of all dictionaries
+option(ALWAYS_DOWNLOAD_DICTS "If boolean is ON, then will download dictiobaries instead of using cached copy in distribution")
 
 message(STATUS "Compiler flags " ${CMAKE_CXX_FLAGS})
 
@@ -61,8 +65,7 @@ add_custom_target(checkout
 # Build dictionaries
 
 # List of dictionaries we are building.  EXTDICTS are built all the time.
-# INTDICTS are not built in distribution - or minimal installation option
-option(MINIMAL_DICTS "If boolean is ON, then only compile a subset of dictionaries")
+# INTDICTS are not built in distribution.
 
 set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
 set(INTDICTS)
