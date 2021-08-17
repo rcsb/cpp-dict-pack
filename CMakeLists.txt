@@ -61,12 +61,15 @@ add_custom_target(checkout
 # Build dictionaries
 
 # List of dictionaries we are building.  EXTDICTS are built all the time.
-# INTDICTS are not built in distribution.
+# INTDICTS are not built in distribution - or minimal installation option
+option(MINIMAL_DICTS "If boolean is ON, then only compile a subset of dictionaries")
+
 set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
-if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/DictPackDist.txt)
-   set(INTDICTS mmcif_pdbx_v40 mmcif_pdbx_v41 mmcif_pdbx_v42 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_ihm mmcif_pdbx_vrpt mmcif_ma mmcif_biosync mmcif_ccp4 mmcif_em mmcif_img mmcif_ndb_ntc mmcif_nef mmcif_nmr-star mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_sas mmcif_std mmcif_sym)
-else()
-   set(INTDICTS)
+set(INTDICTS)
+if(NOT MINIMAL_DICTS)
+  if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/DictPackDist.txt)
+    set(INTDICTS mmcif_pdbx_v40 mmcif_pdbx_v41 mmcif_pdbx_v42 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_ihm mmcif_pdbx_vrpt mmcif_ma mmcif_biosync mmcif_ccp4 mmcif_em mmcif_img mmcif_ndb_ntc mmcif_nef mmcif_nmr-star mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_sas mmcif_std mmcif_sym)
+  endif()
 endif()
 
 
