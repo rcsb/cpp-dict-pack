@@ -17,6 +17,7 @@ function(process_dict base)
   add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mmcif/${base}.dic
     COMMAND ${CMAKE_COMMAND} -E copy dicts/dict-${base}/${base}.dic ${CMAKE_CURRENT_BINARY_DIR}/mmcif/${base}.dic
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/dicts/dict-${base}/${base}.dic
     )
 
   add_custom_target(${base}_dic
