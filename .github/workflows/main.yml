@@ -28,9 +28,9 @@ jobs:
            sudo apt-get install flex bison csh
     # Runs a single command using the runners shell
     - name: configure
-      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=RELEASE -DMINIMAL_DICTS=ON
+      run: cmake -S . -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=RELEASE -DMINIMAL_DICTS=ON
     - name: build
-      run: cmake --build build --target everything -j
+      run: cmake --build ${{github.workspace}}/build --target everything -j
     #- name: test
     #  run: cd build && ctest
     # Runs a set of commands using the runners shell
@@ -42,10 +42,10 @@ jobs:
 
     steps:
     - name: Make dist
-      run: cd build && make dist
+      run: cd ${{github.workspace}}/build && make dist
 
     - name: Archive package
       uses: actions/upload-artifact@v2
       with:
         name: cpack output
-        path: build/*.bz2
+        path: ${{github.workspace}}/build/*.bz2
