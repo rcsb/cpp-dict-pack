@@ -33,14 +33,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --target everything -j
     #- name: test
     #  run: cd build && ctest
-    # Runs a set of commands using the runners shell
 
-  package:
-    name: cpack test
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
     - name: Make dist
       run: cd ${{github.workspace}}/build && make dist
 
