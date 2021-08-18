@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Testing
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -12,9 +12,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
+    name: compile everything
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -35,5 +34,18 @@ jobs:
     #- name: test
     #  run: cd build && ctest
     # Runs a set of commands using the runners shell
+
+  package:
+    name: cpack test
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
     - name: Make dist
       run: cd build && make dist
+
+    - name: Archive package
+      uses: actions/upload-artifact@v2
+      with:
+        name: cpack output
+        path: build/*.bz2
