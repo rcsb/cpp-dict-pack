@@ -6,6 +6,7 @@ set(ICONS_DIR_9  "modules/cpp-dict-to-html/icons")
 set(HTML_INCLUDES_DIR_9  "modules/cpp-dict-to-html/html-includes")
 #
 set(SOURCE_DIR_10  "modules/cpp-misc-dict-util/src")
+set(INCLUDE_DIR_10 "modules/cpp-misc-dict-util/include")
 set(BIN_DIR_10  "modules/cpp-misc-dict-util/bin")
 #
 set(SOURCE_DIR_11  "modules/cpp-pdbml/src")
@@ -63,9 +64,9 @@ add_executable("cifexch" "${SOURCE_DIR_10}/cifexch.C")
 target_link_libraries("cifexch" "mmciflib-all")
 target_include_directories("cifexch" PUBLIC ${BUILD_INCLUDE_DIR})
 
-add_executable("cifexch2" "${SOURCE_DIR_10}/cifexch2.C")
+add_executable("cifexch2" "${SOURCE_DIR_10}/cifexch2.C" "${SOURCE_DIR_10}/ConditionalContext.C")
 target_link_libraries("cifexch2" "mmciflib-all")
-target_include_directories("cifexch2" PUBLIC ${BUILD_INCLUDE_DIR})
+target_include_directories("cifexch2" PUBLIC ${INCLUDE_DIR_10} ${BUILD_INCLUDE_DIR})
 
 add_executable("mk-schema-map-dict" "${SOURCE_DIR_10}/mk-schema-map-dict.C")
 target_link_libraries("mk-schema-map-dict" "schema-map" "mmciflib-all")
