@@ -1,9 +1,21 @@
 cmake_minimum_required(VERSION 2.8.12)
-project(dict-pack)
 
-# Do we need all of these
-set(mydefines " -DBIG_ENDIAN_PLATFORM  -DHAVE_STRCASECMP -DINCL_TEMPLATE_SRC -DHAVE_PLACEMENT_NEW  ")
+message("Cmake version: ${CMAKE_VERSION}")
 
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+
+project(dict-pack C CXX)
+
+find_package(PythonInterp REQUIRED)
+
+# Do we need all of these - none seem to be used
+#set(mydefines " -DBIG_ENDIAN_PLATFORM  -DHAVE_STRCASECMP -DINCL_TEMPLATE_SRC -DHAVE_PLACEMENT_NEW  ")
+
+# Normally we download/build a complete set of dictionaries (unless in distribution). If set, only a subset of dictionaries are uilt
+option(MINIMAL_DICTS "If boolean is ON, then only compile a subset of dictionaries")
+# In sourcdir/dicts present and dictionary present, it will be used.  Force download of all dictionaries
+option(ALWAYS_DOWNLOAD_DICTS "If boolean is ON, then will download dictiobaries instead of using cached copy in distribution")
 
 message(STATUS "Compiler flags " ${CMAKE_CXX_FLAGS})
 
@@ -20,245 +32,107 @@ set(BUILD_SOURCE_DIR "${CMAKE_CURRENT_BINARY_DIR}/src")
 set(BUILD_INCLUDE_DIR "${CMAKE_CURRENT_BINARY_DIR}/include")
 set(BUILD_BINARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/bin")
 set(BUILD_LIBRARY_DIR "${CMAKE_CURRENT_BINARY_DIR}/lib")
+set(BUILD_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}/html")
 
-set(SOURCE_DIR_1 "modules/cpp-common/src")
-set(INCLUDE_DIR_1 "modules/cpp-common/include")
-#
-set(SOURCE_DIR_2 "modules/cpp-tables/src")
-set(INCLUDE_DIR_2 "modules/cpp-tables/include")
+file(MAKE_DIRECTORY ${BUILD_HTML_DIR})
 
-set(SOURCE_DIR_3 "modules/cc-regex/src")
-set(INCLUDE_DIR_3 "modules/cc-regex/include")
+# For extending installation of dict-obj-file programs
+set(BUILD_DICT_PACK_SUPPORT 1)
 
-set(SOURCE_DIR_4  "modules/cpp-cif-file/src")
-set(INCLUDE_DIR_4 "modules/cpp-cif-file/include")
+include(cmake/commonparser.cmake)
+# Build dict-pack tools
+include(cmake/dictpack.cmake)
+# Functions to build dictionaries
+include(cmake/dictfunc.cmake)
+# Functions to download dictionarys
+include(cmake/dictdownload.cmake)
 
-set(SOURCE_DIR_5  "modules/cpp-cif-file-util/src")
-set(INCLUDE_DIR_5 "modules/cpp-cif-file-util/include")
+# Custom command to update git submodules
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+  add_custom_target(checkout-modules ${GIT_EXECUTABLE} submodule update 
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMENT "Updating submodules")
+  set(MODULE_CHECKOUT_DEP checkout-modules)
+endif()
 
-set(SOURCE_DIR_6  "modules/cpp-dict-obj-file/src")
-set(INCLUDE_DIR_6 "modules/cpp-dict-obj-file/include")
+# Will checkout specific dictionaries and modules
+add_custom_target(checkout
+  # COMMENT "CHECKOUT"
+  DEPENDS ${MODULE_CHECKOUT_DEP})
 
-set(SOURCE_DIR_7  "modules/cpp-cif-parser/src")
-set(INCLUDE_DIR_7 "modules/cpp-cif-parser/include")
-#
-set(SOURCE_TEST_DIR  "modules/cpp-mmciflib-test/src")
+#####################
+# Build dictionaries
 
-#
-# ---------------------------------------------------------------
-#
-file(GLOB INC_1 "${INCLUDE_DIR_1}/*.h")
-file(COPY ${INC_1} DESTINATION include)
-file(COPY  "${SOURCE_DIR_1}/mapped_vector.C"     DESTINATION include)
-file(COPY  "${SOURCE_DIR_1}/mapped_ptr_vector.C" DESTINATION include)
-#
-file(GLOB INC_2 "${INCLUDE_DIR_2}/*.h")
-file(COPY ${INC_2} DESTINATION include)
-#
-file(GLOB INC_3 "${INCLUDE_DIR_3}/*.h" "${INCLUDE_DIR_3}/*.ih")
-file(COPY ${INC_3} DESTINATION include)
-#
-file(GLOB INC_4 "${INCLUDE_DIR_4}/*.h")
-file(COPY ${INC_4} DESTINATION include)
+# List of dictionaries we are building.  EXTDICTS are built all the time.
+# INTDICTS are not built in distribution.
 
-file(GLOB INC_5 "${INCLUDE_DIR_5}/*.h")
-file(COPY ${INC_5} DESTINATION include)
-
-file(GLOB INC_6 "${INCLUDE_DIR_6}/*.h")
-file(COPY ${INC_6} DESTINATION include)
-
-file(GLOB INC_7 "${INCLUDE_DIR_7}/*.h")
-file(COPY ${INC_7} DESTINATION include)
-#
-file(MAKE_DIRECTORY ${BUILD_SOURCE_DIR})
-file(MAKE_DIRECTORY ${BUILD_INCLUDE_DIR})
-file(MAKE_DIRECTORY ${BUILD_BINARY_DIR})
-file(MAKE_DIRECTORY ${BUILD_LIBRARY_DIR})
-#
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY  ${BUILD_LIBRARY_DIR})
-
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  ${BUILD_LIBRARY_DIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${BUILD_BINARY_DIR})
-
-# ---------------------------------------------------------------
-# The following define what is installed - disable for now
-#install(DIRECTORY ${INCLUDE_DIR_1} DESTINATION include FILES_MATCHING PATTERN "*.h")
-#install(DIRECTORY ${INCLUDE_DIR_2} DESTINATION include FILES_MATCHING PATTERN "*.h")
-#install(DIRECTORY ${INCLUDE_DIR_3} DESTINATION include FILES_MATCHING PATTERN "*.h")
-#install(DIRECTORY ${INCLUDE_DIR_4} DESTINATION include FILES_MATCHING PATTERN "*.h")
-#
-#install(FILES  "${SOURCE_DIR_1}/mapped_vector.C"     DESTINATION include)
-#install(FILES  "${SOURCE_DIR_1}/mapped_ptr_vector.C" DESTINATION include)
-#
-#
-#  Build 'common' library
-#
-set(SOURCES_1
-         "${SOURCE_DIR_1}/RcsbPlatform.C"
-         "${SOURCE_DIR_1}/RcsbFile.C"
-         "${SOURCE_DIR_1}/BlockIO.C"
-         "${SOURCE_DIR_1}/CifString.C"
-         "${SOURCE_DIR_1}/Serializer.C"
-         "${SOURCE_DIR_1}/GenString.C"
-         "${SOURCE_DIR_1}/GenCont.C"
-         "${SOURCE_DIR_1}/Exceptions.C"
-         "${SOURCE_DIR_1}/DataInfo.C"
-         "${SOURCE_DIR_1}/mapped_vector.C"
-         "${SOURCE_DIR_1}/mapped_ptr_vector.C")
+set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
+set(INTDICTS)
+if(NOT MINIMAL_DICTS)
+  if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/DictPackDist.txt)
+    set(INTDICTS mmcif_pdbx_v40 mmcif_pdbx_v41 mmcif_pdbx_v42 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_ihm mmcif_pdbx_vrpt mmcif_ma mmcif_biosync mmcif_ccp4 mmcif_em mmcif_img mmcif_ndb_ntc mmcif_nef mmcif_nmr-star mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_sas mmcif_std mmcif_sym)
+  endif()
+endif()
 
 
-add_library("common" OBJECT ${SOURCES_1})
-target_include_directories("common" PUBLIC ${BUILD_INCLUDE_DIR})
-#
-#  Build 'tables' library
-#
+set(_SDB_LIST)
+set(_ODB_LIST)
+set(_XML_LIST)
+set(ALLDICTS ${EXTDICTS} ${INTDICTS})
+foreach(DICT ${ALLDICTS})
+  GET_DICTIONARY(${DICT})
+  BUILD_SDB(${DICT} ${ALLDICTS})
+  list(APPEND _SDB_LIST ${DICT}_sdb)
 
-set(SOURCES_2
-             "${SOURCE_DIR_2}/ISTable.C"
-             "${SOURCE_DIR_2}/ITTable.C"
-             "${SOURCE_DIR_2}/TTable.C"
-             "${SOURCE_DIR_2}/TableFile.C")
-#
+  # Determine if xml support needed for this dictionary
+  SHOULD_SUPPRESS_XML(${DICT} RET)
+  # message(STATUS "SUPPRESS ${RET}")
+  if (${RET} STREQUAL "False")
+    BUILD_ODB(${DICT})
+    BUILD_XML(${DICT})
 
-add_library("tables" OBJECT ${SOURCES_2})
-target_include_directories("tables" PUBLIC ${BUILD_INCLUDE_DIR})
+    list(APPEND _ODB_LIST ${DICT}_odb)
+    list(APPEND _XML_LIST ${DICT}_xml)
+  endif()
+endforeach()
+
+add_custom_target(sdb
+  DEPENDS ${_SDB_LIST}
+)
+
+add_custom_target(odb
+  DEPENDS ${_ODB_LIST}
+)
+
+add_custom_target(xml_v50
+  DEPENDS ${_XML_LIST}
+)
+
+
+
+add_custom_target(everything
+	DEPENDS ${DICTPACK_ALLEXE} sdb odb xml_v50
+	)
 #
 #
-#  Build 'regex' library
+# Distribution CPack configuration
 #
-
-set(SOURCES_3
-            "${SOURCE_DIR_3}/regcomp.c"
-            "${SOURCE_DIR_3}/regexec.c"
-            "${SOURCE_DIR_3}/regerror.c"
-            "${SOURCE_DIR_3}/regfree.c")
-#
-
-add_library("regex" OBJECT ${SOURCES_3})
-target_include_directories("regex" PUBLIC ${BUILD_INCLUDE_DIR})
-#
-#  Build 'cif-file' library
-#
-
-set(SOURCES_4
-            "${SOURCE_DIR_4}/CifFile.C"
-            "${SOURCE_DIR_4}/DicFile.C"
-            "${SOURCE_DIR_4}/ParentChild.C"
-            "${SOURCE_DIR_4}/CifParentChild.C"
-            "${SOURCE_DIR_4}/CifDataInfo.C"
-            "${SOURCE_DIR_4}/CifExcept.C")
-
-
-add_library("cif-file" OBJECT ${SOURCES_4})
-target_include_directories("cif-file" PUBLIC ${BUILD_INCLUDE_DIR})
-#
-#  Build 'cif-file-util' library
-#
-
-set(SOURCES_5
-         "${SOURCE_DIR_5}/CifFileUtil.C"
-         "${SOURCE_DIR_5}/CifCorrector.C"
-           )
-
-
-add_library("cif-file-util" OBJECT ${SOURCES_5})
-target_include_directories("cif-file-util" PUBLIC ${BUILD_INCLUDE_DIR})
-
-#
-#  Build 'dict-obj-file' library
-#
-
-set(SOURCES_6
-        "${SOURCE_DIR_6}/DictObjFileCreator.C"
-        "${SOURCE_DIR_6}/DictObjFileReader.C"
-        "${SOURCE_DIR_6}/DictObjContInfo.C"
-        "${SOURCE_DIR_6}/DictObjCont.C"
-        "${SOURCE_DIR_6}/DictObjFile.C"
-        "${SOURCE_DIR_6}/DictDataInfo.C"
-        "${SOURCE_DIR_6}/DictParentChild.C"
-           )
-
-
-add_library("dict-obj-file"  OBJECT ${SOURCES_6})
-target_include_directories("dict-obj-file" PUBLIC ${BUILD_INCLUDE_DIR})
-
-#
-#  Build 'cif-parser' library
-#
-
-
-find_package(FLEX)
-find_package(BISON)
-#
-flex_target(flextarget1 "${SOURCE_DIR_7}/CifScanner.l"  "${BUILD_SOURCE_DIR}/CifScanner.c" COMPILE_FLAGS "-Cfr -L -Pcifparser_")
-flex_target(flextarget2 "${SOURCE_DIR_7}/DICScanner.l"  "${BUILD_SOURCE_DIR}/DICScanner.c" COMPILE_FLAGS "-Cfr -L -Pdicparser_")
-
-bison_target(bisontarget1 "${SOURCE_DIR_7}/CifParser.y"  "${BUILD_SOURCE_DIR}/CifParser.c" COMPILE_FLAGS "-d -v -l -p cifparser_")
-bison_target(bisontarget2 "${SOURCE_DIR_7}/DICParser.y"  "${BUILD_SOURCE_DIR}/DICParser.c" COMPILE_FLAGS "-d -v -l -p dicparser_")
-
-add_flex_bison_dependency(flextarget1 bisontarget1)
-add_flex_bison_dependency(flextarget2 bisontarget2)
-
-
-set(SOURCES_7
-             "${SOURCE_DIR_7}/CifFileReadDef.C"
-             "${BUILD_SOURCE_DIR}/CifParser.c"
-             "${BUILD_SOURCE_DIR}/CifScanner.c"
-             "${SOURCE_DIR_7}/CifScannerBase.C"
-             "${SOURCE_DIR_7}/CifParserBase.C"
-             "${BUILD_SOURCE_DIR}/DICScanner.c"
-             "${SOURCE_DIR_7}/DICScannerBase.C"
-             "${BUILD_SOURCE_DIR}/DICParser.c"
-             "${SOURCE_DIR_7}/DICParserBase.C"
-           )
-
-add_library("cif-parser" OBJECT ${SOURCES_7})
-target_include_directories("cif-parser" PUBLIC ${BUILD_INCLUDE_DIR} ${BUILD_SOURCE_DIR})
-#
-# Combine the all object into consolidated library  'mmciflib-all'
-#
-add_library("mmciflib-all" STATIC
-            "$<TARGET_OBJECTS:common>"
-            "$<TARGET_OBJECTS:tables>"
-            "$<TARGET_OBJECTS:regex>"
-            "$<TARGET_OBJECTS:cif-file>"
-            "$<TARGET_OBJECTS:cif-file-util>"
-            "$<TARGET_OBJECTS:dict-obj-file>"
-            "$<TARGET_OBJECTS:cif-parser>"
-            )
-#
-    message(STATUS "Source directory 1 " ${SOURCE_DIR_1})
-    message(STATUS "Include directory 1 " ${INCLUDE_DIR_1})
-    message(STATUS "SOURCE_1 LIST " ${SOURCES_1})
-    message(STATUS "Source directory 2 " ${SOURCE_DIR_2})
-    message(STATUS "Include directory 2 " ${INCLUDE_DIR_2})
-    message(STATUS "SOURCE_2 LIST " ${SOURCES_2})
-    message(STATUS "Source directory 3 " ${SOURCE_DIR_3})
-    message(STATUS "Include directory 3 " ${INCLUDE_DIR_3})
-    message(STATUS "SOURCE_3 LIST " ${SOURCES_3})
-    message(STATUS "Source directory 4 " ${SOURCE_DIR_4})
-    message(STATUS "Include directory 4 " ${INCLUDE_DIR_4})
-    message(STATUS "SOURCE_4 LIST " ${SOURCES_4})
-    message(STATUS "Source directory 5 " ${SOURCE_DIR_5})
-    message(STATUS "Include directory 5 " ${INCLUDE_DIR_5})
-    message(STATUS "SOURCE_5 LIST " ${SOURCES_5})
-    message(STATUS "Source directory 6 " ${SOURCE_DIR_6})
-    message(STATUS "Include directory 6 " ${INCLUDE_DIR_6})
-    message(STATUS "SOURCE_6 LIST " ${SOURCES_6})
-    message(STATUS "Source directory 7 " ${SOURCE_DIR_7})
-    message(STATUS "Include directory 7 " ${INCLUDE_DIR_7})
-    message(STATUS "SOURCE_7 LIST " ${SOURCES_7})
-#
-message(STATUS, "---ALL DONE WITH CMAKE")
-#
-# Distribution CPack
-set(CPACK_PACKAGE_VERSION_MAJOR "0")
-set(CPACK_PACKAGE_VERSION_MINOR "2")
-set(CPACK_PACKAGE_VERSION_PATCH "3")
-set(CPACK_SOURCE_GENERATOR "TBZ2")
+set(CPACK_PACKAGE_VERSION_MAJOR "2")
+set(CPACK_PACKAGE_VERSION_MINOR "999")
+set(CPACK_PACKAGE_VERSION_PATCH "0")
+set(CPACK_SOURCE_GENERATOR "TBZ2;TGZ")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME
   "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 set(CPACK_SOURCE_IGNORE_FILES
-  "/build/;/.bzr/;.git/;.gitmodules/;~$;${CPACK_SOURCE_IGNORE_FILES}")
+  "/build/;/.bzr/;.git/;/.gitmodules;/.github/;/.gitignore;~$;/.*/.git;/.*/.svn;.idea/;${CPACK_SOURCE_IGNORE_FILES}")
+# Inspired by https://jtanx.github.io/2019/08/22/cmake-dist-customisation/ package selected dictionaries
+set(CPACK_INSTALL_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/CPackExtraDist.cmake")
+  configure_file("${CMAKE_SOURCE_DIR}/cmake/ExtraDist.cmake.in" "CPackExtraDist.cmake" @ONLY)
 include(CPack)
-add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
+add_custom_target(dist
+    COMMAND "${CMAKE_COMMAND}" --build "${CMAKE_BINARY_DIR}" --target package_source
+    # DEPENDS test_dependencies
+    VERBATIM
+    USES_TERMINAL
+  )

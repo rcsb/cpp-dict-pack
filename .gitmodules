@@ -26,3 +26,22 @@
 	path = modules/cpp-cif-parser
 	url = https://github.com/rcsb/cpp-cif-parser.git
 	branch = master
+[submodule "modules/cpp-schema-map"]
+	path = modules/cpp-schema-map
+	url = https://github.com/rcsb/cpp-schema-map.git
+[submodule "modules/cpp-dict-to-html"]
+	path = modules/cpp-dict-to-html
+	url = https://github.com/rcsb/cpp-dict-to-html.git
+	branch = master
+[submodule "modules/cpp-misc-dict-util"]
+	path = modules/cpp-misc-dict-util
+	url = https://github.com/rcsb/cpp-misc-dict-util.git
+	branch = master
+[submodule "modules/cpp-pdbml"]
+	path = modules/cpp-pdbml
+	url = https://github.com/rcsb/cpp-pdbml.git
+	branch = master
+[submodule "modules/cpp-misc-xml-util"]
+	path = modules/cpp-misc-xml-util
+	url = https://github.com/rcsb/cpp-misc-xml-util.git
+	branch = master
