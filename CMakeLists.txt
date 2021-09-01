@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8.12)
 
 message("Cmake version: ${CMAKE_VERSION}")
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(BuildType)
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
