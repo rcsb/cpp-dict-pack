@@ -6,7 +6,7 @@
 
 This repository/package contains the source for the mmCIF dictionary suite.  Included are a number of tools for validation of dictionaries and data.
 
-## Installtion
+## Installation
 
 ### Download the source code
 
