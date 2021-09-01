@@ -130,4 +130,14 @@ file(INSTALL "${BIN_DIR_12}/Dict2XMLSchema.csh" DESTINATION bin
   )
 
 set(DICTPACK_ALLEXE ${DICTPACK_ALLEXE} Dict2XMLSchema mmcif2XML)
-message(STATUS "DICTPACK ALLEXE is ${DICTPACK_ALLEXE}" zF)
+message(STATUS "DICTPACK ALLEXE is ${DICTPACK_ALLEXE}")
+
+# Support scripts
+if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+  file(INSTALL "${CMAKE_SOURCE_DIR}/scripts/WWPDBInstallSvn.csh" DESTINATION bin
+    USE_SOURCE_PERMISSIONS
+    )
+  file(INSTALL "${CMAKE_SOURCE_DIR}/scripts/WWWProdInstall.csh" DESTINATION bin
+    USE_SOURCE_PERMISSIONS
+    )
+endif()
