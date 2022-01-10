@@ -121,11 +121,11 @@ add_custom_target(everything
 # Distribution CPack configuration
 #
 set(CPACK_PACKAGE_VERSION_MAJOR "2")
-set(CPACK_PACKAGE_VERSION_MINOR "999")
+set(CPACK_PACKAGE_VERSION_MINOR "50")
 set(CPACK_PACKAGE_VERSION_PATCH "0")
 set(CPACK_SOURCE_GENERATOR "TBZ2;TGZ")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME
-  "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
+  "${CMAKE_PROJECT_NAME}-v${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}${CPACK_PACKAGE_VERSION_PATCH}-prod-src")
 set(CPACK_SOURCE_IGNORE_FILES
   "/build/;/.bzr/;.git/;/.gitmodules;/.github/;/.gitignore;~$;/.*/.git;/.*/.svn;.idea/;${CPACK_SOURCE_IGNORE_FILES}")
 # Inspired by https://jtanx.github.io/2019/08/22/cmake-dist-customisation/ package selected dictionaries

@@ -10,9 +10,9 @@ This repository/package contains the source for the mmCIF dictionary suite.  Inc
 
 ### Download the source code
 
-* As a distribution with a filename like mmcif-dict-suite-X.XXXX.X.tar.gz
+* As a distribution with a filename like mmcif-dict-suite-vX.XXX-prod-src.tar.gz
 ```bash
-   gzip -d -c mmcif-dict-suite-X.XXXX.X.tar.gz | tar xf -
+   gzip -d -c mmcif-dict-suite-vX.XXX-prod-src.tar.gz | tar xf -
 ```
    
 * From github 
