@@ -71,7 +71,7 @@ class DictConfig(object):
             "suppress_xml": True
         },
         "mmcif_ma": {
-            "url": "https://raw.githubusercontent.com/ihmwg/MA-dictionary/master/mmcif_ma.dic",
+            "url": "https://raw.githubusercontent.com/ihmwg/ModelCIF/master/mmcif_ma.dic",
             "suppress_xml": True
         },
         "mmcif_biosync": {
