@@ -41,7 +41,7 @@ set dicts = " mmcif_pdbx_v5_next mmcif_pdbx_v50 mmcif_pdbx_v40 mmcif_pdbx_v32 mm
 set schemaNames="pdbx-v50-next pdbx-v42 pdbx-v40 pdbx-v32 mmcif_biosync mmcif_ccp4 mmcif_ddl  mmcif_em  mmcif_img  mmcif_sas mmcif_nef mmcif_ma mmcif_nmr-star mmcif_std mmcif_sym"
 #
 foreach d ($dicts)
-    cat dicts/dict-$d/$d'.dic' | gzip >  $PDBX_INSTALL_TOP_PATH/dictionaries/$d'.dic.gz'
+    cat dicts/dict-$d/$d'.dic' | gzip -n >  $PDBX_INSTALL_TOP_PATH/dictionaries/$d'.dic.gz'
     cp  dicts/dict-$d/$d'.dic' $PDBX_INSTALL_TOP_PATH/dictionaries/
     echo "Updating dictionary $d"
 end
