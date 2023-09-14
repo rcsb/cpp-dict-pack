@@ -64,7 +64,7 @@ add_executable("cifexch" "${SOURCE_DIR_10}/cifexch.C")
 target_link_libraries("cifexch" "mmciflib-all")
 target_include_directories("cifexch" PUBLIC ${BUILD_INCLUDE_DIR})
 
-add_executable("cifexch2" "${SOURCE_DIR_10}/cifexch2.C" "${SOURCE_DIR_10}/ConditionalContext.C")
+add_executable("cifexch2" "${SOURCE_DIR_10}/cifexch2.C" "${SOURCE_DIR_10}/ConditionalContext.C" "${SOURCE_DIR_10}/ParseOneDep.C")
 target_link_libraries("cifexch2" "mmciflib-all")
 target_include_directories("cifexch2" PUBLIC ${INCLUDE_DIR_10} ${BUILD_INCLUDE_DIR})
 
