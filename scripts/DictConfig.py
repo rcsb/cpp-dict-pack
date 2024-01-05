@@ -60,7 +60,7 @@ class DictConfig(object):
             "prefix": "mmcif_ihm",
             "ns": "mmcif_ihm",
             "dName": "ihm-extension",
-            "url": "https://github.com/ihmwg/IHMCIF/blob/master/dist/mmcif_ihm_ext.dic",
+            "url": "https://raw.githubusercontent.com/ihmwg/IHMCIF/master/dist/mmcif_ihm_ext.dic",
             "suppress_xml": True
         },
         "mmcif_pdbx_vrpt": {
