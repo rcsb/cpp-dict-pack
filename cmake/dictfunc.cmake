@@ -72,7 +72,7 @@ function(BUILD_SDB DICTNAME DICTLIST)
 
   
   set(GEN_COMMAND
-    ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gendict.py
+    ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/gendict.py
     -s ${CMAKE_CURRENT_SOURCE_DIR}/dicts/dict-${DICTNAME}
     -o ${CMAKE_CURRENT_BINARY_DIR}/dicts/dict-${DICTNAME}
     --dict-name ${DICTNAME}
@@ -131,7 +131,7 @@ endfunction(BUILD_ODB)
 ####################  XML Generation ############################
 function(BUILD_XML DICTNAME)
   set(GEN_COMMAND
-    ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictversion.py
+    ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictversion.py
     --dict-file ${CMAKE_CURRENT_BINARY_DIR}/dicts/dict-${DICTNAME}/${DICTNAME}.dic
     --print-xsdname
     )
@@ -173,7 +173,7 @@ add_custom_target("xml_v50_dir" ALL
 # Should build XML support for this dictionary
 function(SHOULD_SUPPRESS_XML DICTNAME RET_VALUE)
   set(GEN_COMMAND
-    ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictinfo.py
+    ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictinfo.py
     --dictname ${DICTNAME}
     --print-suppress-xml
     )

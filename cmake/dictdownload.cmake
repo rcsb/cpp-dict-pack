@@ -54,7 +54,7 @@ endfunction(fetch_process_dict)
 function(GET_DICTIONARY DICTNAME)
  # Determine download location from dictionary configuration
  set(GEN_COMMAND
-    ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictinfo.py
+    ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/getdictinfo.py
     --dictname ${DICTNAME}
     --print-url
     )
