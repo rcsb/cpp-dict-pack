@@ -56,11 +56,11 @@ class DictConfig(object):
             "dName": "mmcif_pdbx",
             "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif_pdbx/master/previous/dist/mmcif_pdbx_v32.dic"
         },
-        "mmcif_ihm": {
+        "mmcif_ihm_ext": {
             "prefix": "mmcif_ihm",
             "ns": "mmcif_ihm",
             "dName": "ihm-extension",
-            "url": "https://raw.githubusercontent.com/ihmwg/IHM-dictionary/master/ihm-extension.dic",
+            "url": "https://github.com/ihmwg/IHMCIF/blob/master/dist/mmcif_ihm_ext.dic",
             "suppress_xml": True
         },
         "mmcif_pdbx_vrpt": {

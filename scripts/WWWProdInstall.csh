@@ -33,7 +33,7 @@ if (! -e $PDBML_INSTALL_TOP_PATH/schema ) then
 endif
 
 #
-set dicts = " mmcif_pdbx_v5_next mmcif_pdbx_v50 mmcif_pdbx_v40 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_nmr-star  mmcif_biosync mmcif_ccp4  mmcif_ddl mmcif_img mmcif_sas mmcif_nef mmcif_ma mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_std mmcif_sym mmcif_em mmcif_ihm mmcif_ndb_ntc mmcif_pdbx_vrpt"
+set dicts = " mmcif_pdbx_v5_next mmcif_pdbx_v50 mmcif_pdbx_v40 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_nmr-star  mmcif_biosync mmcif_ccp4  mmcif_ddl mmcif_img mmcif_sas mmcif_nef mmcif_ma mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_std mmcif_sym mmcif_em mmcif_ihm_ext mmcif_ndb_ntc mmcif_pdbx_vrpt"
 #
 #
 # pdbx-v50 handled below

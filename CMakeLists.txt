@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.12)
 
 message("Cmake version: ${CMAKE_VERSION}")
 
@@ -9,7 +9,8 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
 project(mmcif-dict-suite C CXX)
 
-find_package(PythonInterp REQUIRED)
+# find_package(PythonInterp REQUIRED)
+find_package(Python COMPONENTS Interpreter)
 
 # Do we need all of these - none seem to be used
 #set(mydefines " -DBIG_ENDIAN_PLATFORM  -DHAVE_STRCASECMP -DINCL_TEMPLATE_SRC -DHAVE_PLACEMENT_NEW  ")
@@ -73,7 +74,7 @@ set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
 set(INTDICTS)
 if(NOT MINIMAL_DICTS)
   if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/DictPackDist.txt)
-    set(INTDICTS mmcif_pdbx_v40 mmcif_pdbx_v41 mmcif_pdbx_v42 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_ihm mmcif_pdbx_vrpt mmcif_ma mmcif_biosync mmcif_ccp4 mmcif_em mmcif_img mmcif_ndb_ntc mmcif_nef mmcif_nmr-star mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_sas mmcif_std mmcif_sym)
+    set(INTDICTS mmcif_pdbx_v40 mmcif_pdbx_v41 mmcif_pdbx_v42 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_ihm_ext mmcif_pdbx_vrpt mmcif_ma mmcif_biosync mmcif_ccp4 mmcif_em mmcif_img mmcif_ndb_ntc mmcif_nef mmcif_nmr-star mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_sas mmcif_std mmcif_sym)
   endif()
 endif()
 
@@ -122,7 +123,7 @@ add_custom_target(everything
 #
 set(CPACK_PACKAGE_VERSION_MAJOR "2")
 set(CPACK_PACKAGE_VERSION_MINOR "50")
-set(CPACK_PACKAGE_VERSION_PATCH "4")
+set(CPACK_PACKAGE_VERSION_PATCH "5")
 set(CPACK_SOURCE_GENERATOR "TBZ2;TGZ")
 if(NOT DEFINED CPACK_SOURCE_PACKAGE_FILE_NAME)
   set(CPACK_SOURCE_PACKAGE_FILE_NAME
