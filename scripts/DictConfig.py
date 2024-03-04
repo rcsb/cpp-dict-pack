@@ -89,6 +89,10 @@ class DictConfig(object):
             "ns": "mmcif_em",
             "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_em.dic"
         },
+        "mmcif_ihm_flr_ext": {
+            "url": "https://raw.githubusercontent.com/ihmwg/flrCIF/master/dist/mmcif_ihm_flr_ext.dic",
+            "suppress_xml": True
+        },
         "mmcif_img": {
             "prefix": "mmcif_img",
             "ns": "mmcif_img",
