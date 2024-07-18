@@ -8,6 +8,7 @@
 #           28-Sept-2016  ep   add v50-rc dictionary
 #           28-Mar-2016   ep   Rename v50-rc xml file as v50.
 #           24-Apr-2017   ep   Finish v50 naming changes.
+#           18-Jul-2024   ep   deploy vrpt dictionary
 #
 # Run from top production directory only.
 #
@@ -30,6 +31,11 @@ if ( -e $installDir ) then
     foreach d (mmcif_pdbx_v40 mmcif_pdbx_v41 mmcif_pdbx_v42 mmcif_pdbx_v5_next mmcif_pdbx_v50 mmcif_ddl)
 	    cp mmcif/${d}.dic    ${targetDir}/${d}.dic
     	cp odb/${d}.odb      ${targetDir}/${d}.odb
+    	cp sdb/${d}.sdb      ${targetDir}/${d}.sdb
+    end
+    foreach d (mmcif_pdbx_vrpt)
+	    cp mmcif/${d}.dic    ${targetDir}/${d}.dic
+    	#cp odb/${d}.odb      ${targetDir}/${d}.odb
     	cp sdb/${d}.sdb      ${targetDir}/${d}.sdb
     end
     #
