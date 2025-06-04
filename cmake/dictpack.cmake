@@ -15,6 +15,10 @@ set(INCLUDE_DIR_11 "modules/cpp-pdbml/include")
 set(SOURCE_DIR_12  "modules/cpp-misc-xml-util/src")
 set(INCLUDE_DIR_12 "modules/cpp-misc-xml-util/include")
 set(BIN_DIR_12 "modules/cpp-misc-xml-util/bin")
+#
+# Extra program
+#
+set(SOURCE_DIR_13  "extra")
 
 #
 #  Build 'schema-map' library - not integrated in main library
@@ -131,6 +135,12 @@ file(INSTALL "${BIN_DIR_12}/Dict2XMLSchema.csh" DESTINATION bin
 
 set(DICTPACK_ALLEXE ${DICTPACK_ALLEXE} Dict2XMLSchema mmcif2XML)
 message(STATUS "DICTPACK ALLEXE is ${DICTPACK_ALLEXE}")
+
+# Build SdbReader program
+add_executable("SdbReader" EXCLUDE_FROM_ALL "${SOURCE_DIR_13}/SdbReader.C")
+target_link_libraries("SdbReader" "mmciflib-all")
+target_include_directories("SdbReader" PUBLIC ${BUILD_INCLUDE_DIR})
+#
 
 # Support scripts
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
