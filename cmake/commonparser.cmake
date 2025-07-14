@@ -126,7 +126,9 @@ set(SOURCES_4
             "${SOURCE_DIR_4}/ParentChild.C"
             "${SOURCE_DIR_4}/CifParentChild.C"
             "${SOURCE_DIR_4}/CifDataInfo.C"
-            "${SOURCE_DIR_4}/CifExcept.C")
+            "${SOURCE_DIR_4}/CifExcept.C"
+            "${SOURCE_DIR_4}/ConditionalDataInfo.C"
+            "${SOURCE_DIR_4}/CifConditionalContext.C")
 
 
 add_library("cif-file" OBJECT ${SOURCES_4})
