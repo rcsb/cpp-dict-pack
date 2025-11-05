@@ -142,7 +142,7 @@ class DictConfig(object):
         "mmcif_investigation_fraghub": {
             "prefix": "mmcif_investigation_fraghub",
             "ns": "mmcif_investigation_fraghub",
-            "url": "https://raw.githubusercontent.com/PDBeurope/InvestigationCIF/main/dist/mmcif_investigation_fraghub_ext.dic",
+            "url": "https://raw.githubusercontent.com/PDBeurope/InvestigationCIF/main/dist/mmcif_investigation.dic",
             "dName": "mmcif_investigaton_fraghub",
             "suppress_xml": True
         },
