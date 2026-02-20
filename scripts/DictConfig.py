@@ -139,11 +139,11 @@ class DictConfig(object):
             "ns": "mmcif_sym",
             "url": "https://raw.githubusercontent.com/wwpdb-dictionaries/mmcif-dictionaries-staging/master/dist/mmcif_sym.dic"
         },
-        "mmcif_investigation_fraghub": {
-            "prefix": "mmcif_investigation_fraghub",
+        "mmcif_investigation_ligscreen": {
+            "prefix": "mmcif_investigation_ligscreen",
             "ns": "mmcif_investigation_fraghub",
             "url": "https://raw.githubusercontent.com/PDBeurope/InvestigationCIF/main/dist/mmcif_investigation.dic",
-            "dName": "mmcif_investigaton_fraghub",
+            "dName": "mmcif_investigaton_ligscreen",
             "suppress_xml": True
         },
     }

@@ -74,7 +74,7 @@ set(EXTDICTS  mmcif_ddl mmcif_pdbx_v5_next mmcif_pdbx_v50)
 set(INTDICTS)
 if(NOT MINIMAL_DICTS)
   if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/DictPackDist.txt)
-    set(INTDICTS mmcif_pdbx_v40 mmcif_pdbx_v41 mmcif_pdbx_v42 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_ihm_ext mmcif_ihm_flr_ext mmcif_pdbx_vrpt mmcif_ma mmcif_biosync mmcif_ccp4 mmcif_em mmcif_img mmcif_ndb_ntc mmcif_nef mmcif_nmr-star mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_sas mmcif_std mmcif_sym mmcif_investigation_fraghub)
+    set(INTDICTS mmcif_pdbx_v40 mmcif_pdbx_v41 mmcif_pdbx_v42 mmcif_pdbx_v32 mmcif_pdbx_v31 mmcif_ihm_ext mmcif_ihm_flr_ext mmcif_pdbx_vrpt mmcif_ma mmcif_biosync mmcif_ccp4 mmcif_em mmcif_img mmcif_ndb_ntc mmcif_nef mmcif_nmr-star mmcif_rcsb_nmr mmcif_rcsb_xray mmcif_sas mmcif_std mmcif_sym mmcif_investigation_ligscreen)
   endif()
 endif()
 
@@ -123,7 +123,7 @@ add_custom_target(everything
 #
 set(CPACK_PACKAGE_VERSION_MAJOR "2")
 set(CPACK_PACKAGE_VERSION_MINOR "50")
-set(CPACK_PACKAGE_VERSION_PATCH "9")
+set(CPACK_PACKAGE_VERSION_PATCH "10")
 set(CPACK_SOURCE_GENERATOR "TBZ2;TGZ")
 if(NOT DEFINED CPACK_SOURCE_PACKAGE_FILE_NAME)
   set(CPACK_SOURCE_PACKAGE_FILE_NAME
